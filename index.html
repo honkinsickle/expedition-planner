@@ -7,15 +7,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0e0e0e;
-  --bg2: #161616;
-  --bg3: #1e1e1e;
-  --bg4: #252525;
-  --border: #2a2a2a;
-  --border2: #333;
-  --orange: #ff6b2b;
-  --orange-dim: rgba(255,107,43,0.15);
-  --orange-glow: rgba(255,107,43,0.08);
+  --bg: #161614;
+  --bg2: #1e1e1c;
+  --bg3: #2c2c28;
+  --bg4: #343430;
+  --border: #40403e;
+  --border2: #565652;
+  --orange: #d97830;
+  --orange-dim: rgba(217,120,48,0.15);
+  --orange-glow: rgba(217,120,48,0.08);
   --green: #22c55e;
   --green-dim: rgba(34,197,94,0.12);
   --blue: #3b82f6;
@@ -572,6 +572,510 @@ input[type=range]::-webkit-slider-thumb {
   cursor: pointer;
 }
 
+
+/* ─── HOME SCREEN ─── */
+.home-header {
+  padding: 16px 18px 10px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.home-eyebrow {
+  font-size: 10px;
+  color: var(--orange);
+  font-family: var(--mono);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.home-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -.5px;
+  line-height: 1.05;
+  font-family: var(--cond);
+}
+.home-sub {
+  font-size: 10px;
+  color: var(--text3);
+  font-family: var(--mono);
+  margin-top: 3px;
+  letter-spacing: .04em;
+}
+.home-phases {
+  display: flex;
+  gap: 6px;
+  padding: 9px 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+}
+.home-phases::-webkit-scrollbar { display: none; }
+.home-phase {
+  padding: 4px 11px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 700;
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  border: none;
+  flex-shrink: 0;
+  background: transparent;
+}
+.home-scroll-hint {
+  text-align: center;
+  padding: 5px 0 3px;
+  font-size: 9px;
+  color: var(--border2);
+  font-family: var(--mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.home-card-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scrollbar-width: none;
+}
+.home-card-scroll::-webkit-scrollbar { display: none; }
+
+/* Day cards */
+.hday-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color .2s, transform .12s;
+  flex-shrink: 0;
+}
+.hday-card:hover { border-color: var(--border2); transform: translateY(-1px); }
+.hday-card:active { transform: scale(.99); }
+.hday-card.hactive { border-color: var(--orange); }
+
+.hcard-top {
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--bg4);
+  position: relative;
+}
+.hcard-date {
+  font-size: 10px;
+  color: #c0c0c0;
+  font-family: var(--mono);
+  letter-spacing: .08em;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.hcard-anchor { opacity: .35; font-size: 11px; }
+.hcard-title {
+  font-size: 21px;
+  font-weight: 800;
+  color: var(--text);
+  font-family: var(--cond);
+  letter-spacing: .01em;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.hcard-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+}
+.hcs { font-size: 10px; color: #c0c0c0; }
+.hcs strong { color: var(--text); font-weight: 600; }
+.hcard-flag {
+  position: absolute;
+  top: 12px; right: 12px;
+  font-size: 9px;
+  font-weight: 700;
+  font-family: var(--mono);
+  padding: 3px 9px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.hcard-body { padding: 12px 16px 14px; }
+.hov-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--orange);
+  font-family: var(--mono);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.hov-line { height: 1px; background: var(--bg4); margin-bottom: 9px; }
+.hov-text { font-size: 13px; color: #c0c0c0; line-height: 1.7; }
+
+.hcard-footer {
+  padding: 9px 16px 12px;
+  border-top: 1px solid var(--bg4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.hcf-left { display: flex; gap: 6px; flex-wrap: wrap; }
+.hpill {
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-family: var(--mono);
+  text-transform: uppercase;
+}
+.hcf-arrow {
+  font-size: 13px;
+  color: var(--border2);
+  font-family: var(--mono);
+  transition: color .15s;
+}
+.hday-card.hactive .hcf-arrow { color: var(--orange); }
+.hday-card:hover .hcf-arrow { color: var(--text2); }
+
+/* ─── HOME BRIEF PANEL ─── */
+.home-brief-panel {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 100%;
+  max-width: 430px;
+  background: var(--bg);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.home-brief-panel.open { transform: translateX(0); }
+
+.hbp-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 16px 10px;
+  background: rgba(30, 30, 28, 0.80);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10;
+}
+.hbp-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--orange);
+  border: none;
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 5px 14px;
+  border-radius: 20px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.hbp-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 52px 14px 80px;
+  scrollbar-width: none;
+}
+.hbp-scroll::-webkit-scrollbar { display: none; }
+
+/* The card inside the panel — same as home card */
+.hbp-card {
+  background: var(--bg3);
+  border: 1px solid var(--orange);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.hbp-top {
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--bg4);
+  position: relative;
+}
+.hbp-date {
+  font-size: 10px;
+  color: #c0c0c0;
+  font-family: var(--mono);
+  letter-spacing: .08em;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hbp-anchor { opacity: .35; }
+.hbp-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text);
+  font-family: var(--cond);
+  letter-spacing: .01em;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.hbp-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 14px;
+}
+.hbp-stat { font-size: 11px; color: #c0c0c0; }
+.hbp-stat strong { color: var(--text); font-weight: 600; }
+.hbp-flag {
+  position: absolute;
+  top: 12px; right: 12px;
+  font-size: 9px;
+  font-weight: 700;
+  font-family: var(--mono);
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.hbp-body { padding: 14px 16px 16px; }
+.hbp-ov-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--orange);
+  font-family: var(--mono);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.hbp-ov-line { height: 1px; background: var(--bg4); margin-bottom: 10px; }
+.hbp-ov-text { font-size: 13px; color: #c0c0c0; line-height: 1.75; }
+.hbp-footer {
+  padding: 10px 16px 12px;
+  border-top: 1px solid var(--bg4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.hbp-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.hbp-pill {
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-family: var(--mono);
+  text-transform: uppercase;
+}
+.hbp-detail {
+  font-size: 13px;
+  font-family: var(--cond);
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: .04em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ── Sections inside the hbp card ── */
+.hbp-sec {
+  padding: 14px 16px;
+  border-top: 1px solid var(--bg4);
+}
+.hbp-sec-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.hbp-sec-icon {
+  width: 18px; height: 18px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.hbp-sec-label {
+  font-size: 9px;
+  font-weight: 700;
+  font-family: var(--mono);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+/* Stops */
+.hbp-stop {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.hbp-stop:last-child { margin-bottom: 0; }
+.hbp-stop-spine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 10px;
+}
+.hbp-stop-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.hbp-stop-line {
+  width: 1.5px;
+  flex: 1;
+  min-height: 14px;
+  background: var(--border);
+  margin-top: 3px;
+}
+.hbp-stop-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+.hbp-stop-note {
+  font-size: 11px;
+  color: var(--text2);
+  line-height: 1.45;
+}
+/* Weather */
+.hbp-wx-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.hbp-wx-tile {
+  background: var(--bg4);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.hbp-wx-val {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+  font-family: var(--cond);
+  line-height: 1;
+  margin-bottom: 3px;
+}
+.hbp-wx-lbl {
+  font-size: 8px;
+  color: var(--text3);
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+.hbp-wx-note {
+  font-size: 11px;
+  color: var(--text2);
+  line-height: 1.55;
+}
+/* Overnight */
+.hbp-camp {
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.hbp-camp-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  font-family: var(--cond);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.hbp-camp-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin-bottom: 5px;
+  font-size: 11px;
+  color: var(--text2);
+  line-height: 1.4;
+}
+.hbp-camp-row:last-child { margin-bottom: 0; }
+.hbp-camp-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--border2);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+/* ─── BOTTOM NAV ─── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  display: flex;
+  z-index: 250;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.bn-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 10px 8px 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity .15s;
+  position: relative;
+}
+.bn-btn:active { opacity: .7; }
+.bn-icon {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bn-icon svg { display: block; }
+.bn-label {
+  font-size: 10px;
+  font-weight: 600;
+  font-family: var(--mono);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text3);
+  transition: color .15s;
+}
+.bn-btn.bn-active .bn-label { color: var(--orange); }
+.bn-btn.bn-active .bn-icon svg path,
+.bn-btn.bn-active .bn-icon svg rect,
+.bn-btn.bn-active .bn-icon svg circle,
+.bn-btn.bn-active .bn-icon svg line { stroke: var(--orange); }
+.bn-indicator {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 2px;
+  border-radius: 0 0 2px 2px;
+  background: var(--orange);
+  opacity: 0;
+  transition: opacity .15s;
+}
+.bn-btn.bn-active .bn-indicator { opacity: 1; }
+
+/* push screen content above bottom nav */
+.screen { padding-bottom: 64px; }
+
 /* ─── GENERATE BUTTON ─── */
 .generate-bar {
   position: fixed;
@@ -690,6 +1194,7 @@ input[type=range]::-webkit-slider-thumb {
   display: flex;
   gap: 5px;
   margin-top: 10px;
+  flex-wrap: wrap;
 }
 .phase-pill {
   padding: 3px 10px;
@@ -700,98 +1205,173 @@ input[type=range]::-webkit-slider-thumb {
   text-transform: uppercase;
   letter-spacing: .08em;
 }
-.phase-pill.depart { background: rgba(34,197,94,.15); color: var(--green); }
-.phase-pill.outbound { background: rgba(255,107,43,.15); color: var(--orange); }
-.phase-pill.apex { background: rgba(59,130,246,.15); color: var(--blue); }
-.phase-pill.return { background: rgba(255,107,43,.1); color: #ff9166; }
+.phase-pill.depart  { background: rgba(34,197,94,.12);  color: var(--green); }
+.phase-pill.outbound{ background: rgba(255,107,43,.12); color: var(--orange); }
+.phase-pill.apex    { background: rgba(59,130,246,.12); color: var(--blue); }
+.phase-pill.return  { background: rgba(255,107,43,.08); color: #ff9166; }
 
+/* Card list container */
+.day-cards-list {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Individual card */
 .day-row {
   display: flex;
   align-items: stretch;
-  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
   cursor: pointer;
-  transition: background .12s;
+  transition: border-color .18s, transform .12s;
+  position: relative;
 }
-.day-row:hover { background: var(--bg3); }
-.day-row.active-day { background: var(--bg3); border-left: 3px solid var(--orange); }
+.day-row:hover {
+  border-color: var(--border2);
+  transform: translateY(-1px);
+}
+.day-row:active { transform: scale(.99); }
+.day-row.active-day {
+  border-color: var(--orange);
+  background: rgba(255,107,43,.04);
+}
+
+/* Phase accent bar */
+.day-phase-bar {
+  width: 3px;
+  flex-shrink: 0;
+  border-radius: 0;
+}
+
+/* Day number column */
 .day-num-col {
-  width: 44px;
+  width: 48px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 12px 6px;
+  padding: 14px 6px;
   flex-shrink: 0;
   border-right: 1px solid var(--border);
+  gap: 5px;
 }
 .day-num {
   font-family: var(--mono);
-  font-size: 9px;
-  color: var(--text3);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text2);
+  letter-spacing: .04em;
 }
 .day-dot {
-  width: 8px; height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  margin-top: 4px;
   flex-shrink: 0;
 }
-.day-content { flex: 1; padding: 10px 12px; }
+
+/* Main content */
+.day-content {
+  flex: 1;
+  padding: 12px 14px 11px;
+  min-width: 0;
+}
 .day-route {
-  font-size: 13px;
-  font-weight: 600;
+  font-family: var(--cond);
+  font-size: 16px;
+  font-weight: 700;
   color: var(--text);
-  margin-bottom: 2px;
-  line-height: 1.3;
+  letter-spacing: .01em;
+  line-height: 1.2;
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .day-meta {
   font-family: var(--mono);
   font-size: 9px;
-  color: var(--text2);
-  display: flex;
-  gap: 8px;
+  color: var(--text3);
+  letter-spacing: .04em;
   margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-.day-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.day-meta-sep {
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--text3);
+  flex-shrink: 0;
+}
 .day-desc {
   font-size: 11px;
   color: var(--text3);
-  line-height: 1.45;
-  margin-bottom: 5px;
-  font-family: var(--mono);
+  line-height: 1.5;
+  margin-bottom: 7px;
+  font-family: var(--sans);
+  font-weight: 400;
+}
+.day-tags {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
 }
 .day-tag {
   font-family: var(--mono);
   font-size: 8px;
-  padding: 2px 6px;
-  border-radius: 3px;
+  padding: 2px 7px;
+  border-radius: 20px;
   text-transform: uppercase;
   letter-spacing: .06em;
+  font-weight: 600;
 }
-.day-tag.camp { background: rgba(34,197,94,.1); color: var(--green); }
-.day-tag.hotel { background: rgba(59,130,246,.1); color: var(--blue); }
-.day-tag.fuel { background: rgba(255,107,43,.1); color: var(--orange); }
-.day-tag.event { background: rgba(168,85,247,.1); color: #a855f7; }
+.day-tag.camp  { background: rgba(34,197,94,.1);   color: var(--green); }
+.day-tag.hotel { background: rgba(59,130,246,.1);  color: var(--blue); }
+.day-tag.fuel  { background: rgba(255,107,43,.1);  color: var(--orange); }
+.day-tag.event { background: rgba(168,85,247,.1);  color: #a855f7; }
+
+/* Right badge */
 .day-badge {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  justify-content: center;
-  padding: 10px 12px;
-  gap: 2px;
+  justify-content: space-between;
+  padding: 12px 14px 11px;
   flex-shrink: 0;
+  min-width: 52px;
 }
 .day-mi {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 700;
+  font-family: var(--cond);
+  font-size: 20px;
+  font-weight: 800;
   color: var(--text);
+  line-height: 1;
+  letter-spacing: -.02em;
 }
+.day-mi.dash { font-size: 16px; color: var(--text3); }
 .day-mi-label {
   font-family: var(--mono);
   font-size: 7px;
   color: var(--text3);
   text-transform: uppercase;
+  letter-spacing: .08em;
 }
+.day-arrow {
+  font-size: 13px;
+  color: var(--text3);
+  transition: color .18s, transform .18s;
+}
+.day-row:hover .day-arrow,
+.day-row.active-day .day-arrow {
+  color: var(--orange);
+  transform: translateX(2px);
+}
+
 
 /* ─── MAP SCREEN ─── */
 .map-placeholder {
@@ -1298,7 +1878,25 @@ input[type=range]::-webkit-slider-thumb {
 <!-- ═══════════════════════════════════════
      SCREEN: NEW TRIP
 ═══════════════════════════════════════ -->
-<div class="screen active" id="screen-new-trip">
+<!-- ═══════════════════════════════════════
+     SCREEN: HOME
+═══════════════════════════════════════ -->
+<div class="screen active" id="screen-home">
+  <div class="home-header">
+    <div class="home-eyebrow">Claud v1.1 · Spring '26 · GX470</div>
+    <div class="home-title">Las Vegas → Arches</div>
+    <div class="home-sub">Mar 21–27 · 7 days · Los Angeles, CA → Moab, UT</div>
+  </div>
+  <div class="home-phases">
+    <div class="home-phase" style="background:rgba(34,197,94,.12);color:#22c55e">Depart D1–2</div>
+    <div class="home-phase" style="background:rgba(217,120,48,.12);color:#d97830">Outbound D3–5</div>
+    <div class="home-phase" style="background:rgba(59,130,246,.12);color:#3b82f6">Apex D6–7</div>
+  </div>
+  <div class="home-scroll-hint">↓ scroll all 7 days</div>
+  <div class="home-card-scroll" id="home-card-scroll"></div>
+</div>
+
+<div class="screen" id="screen-new-trip">
   <div class="app-header">
     <div class="header-top">
       <div>
@@ -1330,8 +1928,9 @@ input[type=range]::-webkit-slider-thumb {
   </div>
 
   <div class="nav-pills">
-    <button class="nav-pill new-trip active">+ New Trip</button>
-    <button class="nav-pill" onclick="showScreen('screen-daily')"><span class="dot" style="background:var(--orange)"></span>Daily Table</button>
+    <button class="nav-pill" onclick="showScreen('screen-home')"><span class="dot" style="background:var(--orange)"></span>Home</button>
+    <button class="nav-pill new-trip" onclick="showScreen('screen-new-trip')">+ New Trip</button>
+    <button class="nav-pill" onclick="showScreen('screen-daily')"><span class="dot" style="background:var(--orange)"></span>Route Details</button>
     <button class="nav-pill" onclick="showScreen('screen-csv')"><span class="dot" style="background:var(--blue)"></span>MyMaps CSV</button>
     <button class="nav-pill" onclick="showScreen('screen-map')"><span class="dot" style="background:var(--green)"></span>Map</button>
     <button class="nav-pill" onclick="showDayDive(0)"><span class="dot" style="background:var(--orange)"></span>Detail</button>
@@ -1558,7 +2157,7 @@ input[type=range]::-webkit-slider-thumb {
   <div class="app-header">
     <div class="header-top">
       <div>
-        <div class="header-eyebrow">Claud v1.1 · Daily Table</div>
+        <div class="header-eyebrow">Claud v1.1 · Route Details</div>
         <div class="header-title">Day by Day</div>
       </div>
       <div class="header-badge">GX478</div>
@@ -1574,8 +2173,9 @@ input[type=range]::-webkit-slider-thumb {
   </div>
 
   <div class="nav-pills">
+    <button class="nav-pill" onclick="showScreen('screen-home')"><span class="dot" style="background:var(--orange)"></span>Home</button>
     <button class="nav-pill" onclick="showScreen('screen-new-trip')">+ New Trip</button>
-    <button class="nav-pill active"><span class="dot" style="background:var(--orange)"></span>Daily Table</button>
+    <button class="nav-pill active"><span class="dot" style="background:var(--orange)"></span>Route Details</button>
     <button class="nav-pill" onclick="showScreen('screen-csv')"><span class="dot" style="background:var(--blue)"></span>MyMaps CSV</button>
     <button class="nav-pill" onclick="showScreen('screen-map')"><span class="dot" style="background:var(--green)"></span>Map</button>
     <button class="nav-pill" onclick="showDayDive(0)"><span class="dot" style="background:var(--orange)"></span>Detail</button>
@@ -1612,8 +2212,9 @@ input[type=range]::-webkit-slider-thumb {
   </div>
 
   <div class="nav-pills">
+    <button class="nav-pill" onclick="showScreen('screen-home')"><span class="dot" style="background:var(--orange)"></span>Home</button>
     <button class="nav-pill" onclick="showScreen('screen-new-trip')">+ New Trip</button>
-    <button class="nav-pill" onclick="showScreen('screen-daily')"><span class="dot" style="background:var(--orange)"></span>Daily Table</button>
+    <button class="nav-pill" onclick="showScreen('screen-daily')"><span class="dot" style="background:var(--orange)"></span>Route Details</button>
     <button class="nav-pill" onclick="showScreen('screen-csv')"><span class="dot" style="background:var(--blue)"></span>MyMaps CSV</button>
     <button class="nav-pill active"><span class="dot" style="background:var(--green)"></span>Map</button>
     <button class="nav-pill" onclick="showDayDive(0)"><span class="dot" style="background:var(--orange)"></span>Detail</button>
@@ -1724,9 +2325,11 @@ input[type=range]::-webkit-slider-thumb {
 
   <div class="nav-pills" style="border-bottom:1px solid var(--border)">
     <button class="nav-pill" onclick="closeDayDive()">← Back</button>
-    <button class="nav-pill active"><span class="dot" style="background:var(--orange)"></span>POIs</button>
+    <button class="nav-pill active" id="poi-nav-pill" onclick="switchDiveTab('pois',this)"><span class="dot" style="background:var(--orange)"></span>POIs</button>
     <button class="nav-pill" id="food-nav-pill" onclick="switchDiveTab('food',this)"><span class="dot" style="background:#f59e0b"></span>Food</button>
   </div>
+
+  <div class="slide-panel-body" id="dive-body">
     <!-- rendered dynamically by showDayDive() -->
   </div>
 </div>
@@ -1746,8 +2349,9 @@ input[type=range]::-webkit-slider-thumb {
   </div>
 
   <div class="nav-pills">
+    <button class="nav-pill" onclick="showScreen('screen-home')"><span class="dot" style="background:var(--orange)"></span>Home</button>
     <button class="nav-pill" onclick="showScreen('screen-new-trip')">+ New Trip</button>
-    <button class="nav-pill" onclick="showScreen('screen-daily')"><span class="dot" style="background:var(--orange)"></span>Daily Table</button>
+    <button class="nav-pill" onclick="showScreen('screen-daily')"><span class="dot" style="background:var(--orange)"></span>Route Details</button>
     <button class="nav-pill active"><span class="dot" style="background:var(--blue)"></span>MyMaps CSV</button>
     <button class="nav-pill" onclick="showScreen('screen-map')"><span class="dot" style="background:var(--green)"></span>Map</button>
     <button class="nav-pill" onclick="showDayDive(0)"><span class="dot" style="background:var(--orange)"></span>Detail</button>
@@ -2016,11 +2620,223 @@ const dayData = [
 const phaseColors = { depart:'var(--green)', outbound:'var(--orange)', apex:'var(--blue)', return:'#ff9166' };
 
 // ─── SCREEN NAVIGATION ───
+// ─── HOME SCREEN DATA ───
+const homeData = [
+  { day:1, date:'March 21, 2026', location:'Las Vegas, NV', start:'Los Angeles, CA', end:'Las Vegas, NV', miles:'~270 mi', drive:'4 hrs', phaseColor:'#22c55e', flag:'Meow Wolf ✦', flagStyle:'background:rgba(168,85,247,.18);color:#a855f7', pills:[{t:'event',s:'background:rgba(168,85,247,.12);color:#a855f7'},{t:'hotel',s:'background:rgba(59,130,246,.12);color:#3b82f6'}], overview:'Drive from Los Angeles through the Mojave Desert to Las Vegas. Tonight is the Meow Wolf experience — book tickets in advance. Keep the drive efficient; this is a transition day. Last major resupply before entering Utah canyon country. Fill the tank before leaving Vegas.',
+    brief: {
+      stops: [
+        { color:'#d97830', name:'Barstow, CA', note:"Fuel + Mad Greek Café — don't skip it" },
+        { color:'#888', name:'Baker, CA', note:"World's tallest thermometer. Quick photo stop." },
+        { color:'#a855f7', name:'Meow Wolf Las Vegas', note:'Immersive art — book tickets in advance' },
+      ],
+      weather: { hi:'78°F', lo:'58°F', sky:'Clear · Mojave heat', note:'Leave LA early to beat I-15 traffic. AC on the whole way.' },
+      overnight: { name:'Hotel · Las Vegas', rows:["Pre-book — rates spike on weekends","Downtown is cheaper + closer to Meow Wolf","Check out by 9am tomorrow for early Utah push"] }
+    }
+  },
+  { day:2, date:'March 22, 2026', location:'Hurricane Cliffs, UT', start:'Las Vegas, NV', end:'Hurricane Cliffs, UT', miles:'~125 mi', drive:'~2 hrs', phaseColor:'#22c55e', flag:'Dispersed Camp', flagStyle:'background:rgba(34,197,94,.15);color:#22c55e', pills:[{t:'camp',s:'background:rgba(34,197,94,.12);color:#22c55e'}], overview:'Short drive into Utah. Hurricane Cliffs BLM land offers excellent dispersed camping with big red rock views and wide open sky. Set up camp early, shake down the rig, and prep all gear for the Zion Subway hike. Permit pick-up is tomorrow morning at the Zion visitor center.',
+    brief: {
+      stops: [
+        { color:'#d97830', name:'Virgin, UT', note:'Last fuel + supplies before camp' },
+        { color:'#888', name:'Hurricane Cliffs BLM', note:'Multiple flat pull-outs off Hwy 59' },
+        { color:'#22c55e', name:'Camp setup', note:'Waterproof all gear · check permit logistics' },
+      ],
+      weather: { hi:'62°F', lo:'34°F', sky:'Clear · cold overnight', note:'Temps drop fast after sunset. Layer up. Wind from the SW after 6pm.' },
+      overnight: { name:'BLM Dispersed · Hurricane Cliffs', rows:['No fee · no reservation required','Flat pull-outs off Hwy 59 — multiple options','Bring all water — no services on site'] }
+    }
+  },
+  { day:3, date:'March 23, 2026', location:'Zion National Park', start:'Hurricane Cliffs, UT', end:'Zion NP', miles:'~45 mi', drive:'1.5–2 hrs', phaseColor:'#d97830', flag:'Permit Day', flagStyle:'background:rgba(217,120,48,.18);color:#d97830', pills:[{t:'permit',s:'background:rgba(217,120,48,.12);color:#d97830'},{t:'camp',s:'background:rgba(34,197,94,.12);color:#22c55e'}], overview:"Pick up Subway permits at the Zion visitor center first thing. Explore the main canyon — Riverside Walk, lower canyon photography, and full gear prep for tomorrow's technical slot canyon hike. Stage pack weights and waterproof everything tonight.",
+    brief: {
+      stops: [
+        { color:'#d97830', name:'Zion Visitor Center', note:'Subway permit pickup — arrive before 8am' },
+        { color:'#888', name:'Riverside Walk', note:'Lower narrows photography · 2.2 mi RT' },
+        { color:'#888', name:'South Campground', note:'Check in · set up before sunset' },
+      ],
+      weather: { hi:'61°F', lo:'38°F', sky:'Partly cloudy', note:'Canyon temps 10°F cooler than the rim. Narrows water ~45°F — dry suit tomorrow.' },
+      overnight: { name:'South Campground · Zion NP', rows:['Loop A · Sites 1–24 · $25/night','Water + flush toilets on site','Reserve at recreation.gov · arrive by 2pm'] }
+    }
+  },
+  { day:4, date:'March 24, 2026', location:'Zion Subway', start:'Zion NP', end:'Zion NP', miles:'9.5 mi hike', drive:'2 hrs car', phaseColor:'#d97830', flag:'The Main Event', flagStyle:'background:rgba(217,120,48,.22);color:#d97830', pills:[{t:'technical',s:'background:rgba(217,120,48,.14);color:#d97830'},{t:'permit req.',s:'background:rgba(168,85,247,.12);color:#a855f7'}], overview:'The main event. The Subway is a technical slot canyon route through sculpted sandstone narrows, keeper pools, and rappels. 9.5 miles total. Permit required. Trailhead: 37.2846493, -113.0958538. Leave by 7am, pack light, waterproof all gear. Expect cold water. Full day commitment — no shortcuts.',
+    brief: {
+      stops: [
+        { color:'#d97830', name:'Subway Trailhead', note:'37.2846493, -113.0958538 · Leave by 7am' },
+        { color:'#888', name:'The Subway slot', note:'Technical section · keeper pools · 4 rappels' },
+        { color:'#22c55e', name:'Exit trailhead', note:'Right Fork · arrange shuttle or 2-car setup' },
+      ],
+      weather: { hi:'58°F', lo:'36°F', sky:'Clear · cold water', note:'Water temp ~43°F. Dry suit strongly recommended. Check flash flood advisory before entry.' },
+      overnight: { name:'South Campground · Zion NP', rows:['Same site as last night — re-confirm reservation','Set up camp before dark after exit hike','Gear dry-out and debrief around the fire'] }
+    }
+  },
+  { day:5, date:'March 25, 2026', location:'Bryce Canyon', start:'Zion NP', end:'Bryce Canyon NP', miles:'~85 mi', drive:'~2 hrs', phaseColor:'#d97830', flag:null, flagStyle:'', pills:[{t:'camp',s:'background:rgba(34,197,94,.12);color:#22c55e'}], overview:'Drive Hwy 9 east then north on Hwy 89 to Bryce. Arrive in time for golden hour at Bryce Amphitheater — the hoodoos glow deep orange. Camp under the ponderosa pines at 8,000 ft; temps drop sharply at night. Set an alarm for sunrise over the hoodoos.',
+    brief: {
+      stops: [
+        { color:'#d97830', name:'Mt. Carmel Junction', note:'Hwy 9 east · scenic tunnel · $35 oversized fee may apply' },
+        { color:'#888', name:'Bryce Amphitheater', note:'Golden hour · Inspiration Point viewpoint' },
+        { color:'#22c55e', name:'Bryce Canyon campground', note:'North or Sunset campground · reserve ahead' },
+      ],
+      weather: { hi:'52°F', lo:'24°F', sky:'Clear · cold at elevation', note:'8,000 ft elevation. Freezing overnight is possible in late March. Insulated sleep setup required.' },
+      overnight: { name:'North Campground · Bryce Canyon NP', rows:['Open year-round · sites A1–A55 · $20/night','Water available · no hookups','Reserve at recreation.gov — fills fast in spring'] }
+    }
+  },
+  { day:6, date:'March 26, 2026', location:'Moab', start:'Bryce Canyon', end:'Moab, UT', miles:'~215 mi', drive:'~3.5 hrs', phaseColor:'#3b82f6', flag:'Apex Day', flagStyle:'background:rgba(59,130,246,.15);color:#3b82f6', pills:[{t:'hotel',s:'background:rgba(59,130,246,.12);color:#3b82f6'},{t:'resupply',s:'background:rgba(217,120,48,.1);color:#d97830'}], overview:'Drive east toward Moab through canyon country. Dead Horse Point State Park is 9 miles off your route — worth every minute. Arrive Moab by mid-afternoon. Hotel night: shower, full resupply, recharge. Moab Brewery for dinner — Dead Horse Ale is named after the overlook you just visited.',
+    brief: {
+      stops: [
+        { color:'#d97830', name:'Dead Horse Point SP', note:'9 mi off Hwy 313 · Colorado River horseshoe · $20 entry' },
+        { color:'#888', name:'Moab town center', note:'Full resupply · gear check · Moab Brewery for dinner' },
+        { color:'#3b82f6', name:'Hotel · Moab', note:'Pre-book · shower · recharge all devices' },
+      ],
+      weather: { hi:'68°F', lo:'42°F', sky:'Sunny · canyon country', note:'Warm and clear. Perfect driving day. Winds can be gusty on the plateau above Moab.' },
+      overnight: { name:'Hotel · Moab, UT', rows:['Pre-book: Moab is popular in spring','Moab Valley Inn or similar midrange option','Check out by 9am tomorrow for Arches timed entry'] }
+    }
+  },
+  { day:7, date:'March 27, 2026', location:'Arches National Park', start:'Moab, UT', end:'Arches NP', miles:'~5 mi', drive:'8 min', phaseColor:'#3b82f6', flag:'Expedition End ✦', flagStyle:'background:rgba(59,130,246,.22);color:#3b82f6', pills:[{t:'final day',s:'background:rgba(59,130,246,.12);color:#3b82f6'},{t:'timed entry',s:'background:rgba(217,120,48,.1);color:#d97830'}], overview:"Timed entry required — reserve in advance at recreation.gov. Leave Moab by 5:30am for Delicate Arch sunrise: 3-mile RT, arrive before the crowds, golden light hits the arch perfectly. Landscape Arch is 1.6 miles RT — the longest natural arch in North America. You've completed Las Vegas → Arches. Make the last hours count.",
+    brief: {
+      stops: [
+        { color:'#d97830', name:'Delicate Arch trailhead', note:'Leave Moab by 5:30am · 3 mi RT · golden light at sunrise' },
+        { color:'#888', name:'Landscape Arch', note:'1.6 mi RT · longest natural arch in North America' },
+        { color:'#3b82f6', name:'Park Avenue viewpoint', note:'Final stop · iconic skyline view · expedition complete' },
+      ],
+      weather: { hi:'65°F', lo:'38°F', sky:'Clear · ideal conditions', note:'Perfect spring morning. Cold at sunrise — bring a layer. Warms quickly by 9am.' },
+      overnight: { name:'Hotel · Moab (checkout)', rows:['Check out after morning hike','Long drive home if returning to LA today — 7+ hrs','Consider one more night in Moab and leave fresh tomorrow'] }
+    }
+  },
+];
+
+let homeActive = 0;
+
+function renderHomeCards() {
+  const container = document.getElementById('home-card-scroll');
+  if (!container) return;
+  container.innerHTML = '';
+  homeData.forEach((d, i) => {
+    const card = document.createElement('div');
+    card.className = 'hday-card' + (i === homeActive ? ' hactive' : '');
+    card.innerHTML = `
+      <div class="hcard-top">
+        <div class="hcard-date"><span>${d.date}</span><span class="hcard-anchor">⚓</span></div>
+        <div class="hcard-title">Day ${d.day} · ${d.location}</div>
+        <div class="hcard-stats">
+          <div class="hcs"><strong>Start:</strong> ${d.start}</div>
+          <div class="hcs"><strong>End:</strong> ${d.end}</div>
+          <div class="hcs"><strong>Miles:</strong> ${d.miles}</div>
+          <div class="hcs"><strong>Drive:</strong> ${d.drive}</div>
+        </div>
+        ${d.flag ? `<div class="hcard-flag" style="${d.flagStyle}">${d.flag}</div>` : ''}
+      </div>
+      <div class="hcard-body">
+        <div class="hov-label">Day Overview</div>
+        <div class="hov-line"></div>
+        <div class="hov-text">${d.overview}</div>
+      </div>
+      <div class="hcard-footer">
+        <div class="hcf-left">${d.pills.map(p => `<span class="hpill" style="${p.s}">${p.t}</span>`).join('')}</div>
+        <div class="hcf-arrow">→ Detail</div>
+      </div>`;
+    card.onclick = () => {
+      openHomeBrief(i);
+    };
+    container.appendChild(card);
+  });
+}
+
+// ─── HOME BRIEF PANEL ───
+function openHomeBrief(i) {
+  const d = homeData[i];
+  const pillsHtml = d.pills.map(p => `<span class="hbp-pill" style="${p.s}">${p.t}</span>`).join('');
+  const flagHtml = d.flag ? `<div class="hbp-flag" style="${d.flagStyle}">${d.flag}</div>` : '';
+
+  // Stops section
+  const stopsHtml = d.brief && d.brief.stops ? d.brief.stops.map((s, si, arr) => `
+    <div class="hbp-stop">
+      <div class="hbp-stop-spine">
+        <div class="hbp-stop-dot" style="background:${s.color}"></div>
+        ${si < arr.length - 1 ? '<div class="hbp-stop-line"></div>' : ''}
+      </div>
+      <div>
+        <div class="hbp-stop-name">${s.name}</div>
+        <div class="hbp-stop-note">${s.note}</div>
+      </div>
+    </div>`).join('') : '';
+
+  // Weather section
+  const wxHtml = d.brief && d.brief.weather ? `
+    <div class="hbp-sec">
+      <div class="hbp-sec-header">
+        <div class="hbp-sec-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 12a5.5 5.5 0 0110.6-1.3A3.5 3.5 0 1115.5 12H3z" stroke="#3b82f6" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+        <div class="hbp-sec-label" style="color:#3b82f6">Weather</div>
+      </div>
+      <div class="hbp-wx-grid">
+        <div class="hbp-wx-tile"><div class="hbp-wx-val">${d.brief.weather.hi}</div><div class="hbp-wx-lbl">High</div></div>
+        <div class="hbp-wx-tile"><div class="hbp-wx-val">${d.brief.weather.lo}</div><div class="hbp-wx-lbl">Low</div></div>
+      </div>
+      <div class="hbp-wx-note">${d.brief.weather.sky} · ${d.brief.weather.note}</div>
+    </div>` : '';
+
+  // Overnight section
+  const overnightHtml = d.brief && d.brief.overnight ? `
+    <div class="hbp-sec">
+      <div class="hbp-sec-header">
+        <div class="hbp-sec-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 14l4-7 3.5 4.5 2.5-3.5L16 14H2z" stroke="#22c55e" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+        <div class="hbp-sec-label" style="color:#22c55e">Overnight</div>
+      </div>
+      <div class="hbp-camp">
+        <div class="hbp-camp-name">${d.brief.overnight.name}</div>
+        ${d.brief.overnight.rows.map(r => `<div class="hbp-camp-row"><div class="hbp-camp-dot"></div><span>${r}</span></div>`).join('')}
+      </div>
+    </div>` : '';
+
+  // Stops section (only if exists)
+  const keyStopsHtml = d.brief && d.brief.stops ? `
+    <div class="hbp-sec">
+      <div class="hbp-sec-header">
+        <div class="hbp-sec-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7.5" r="3.5" stroke="#d97830" stroke-width="1.4"/><path d="M9 11v5M7 15h4" stroke="#d97830" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+        <div class="hbp-sec-label" style="color:#d97830">Key Stops</div>
+      </div>
+      ${stopsHtml}
+    </div>` : '';
+
+  document.getElementById('hbp-scroll').innerHTML = `
+    <div class="hbp-card">
+      <div class="hbp-top">
+        <div class="hbp-date"><span>${d.date}</span><span class="hbp-anchor">⚓</span></div>
+        <div class="hbp-title">Day ${d.day} · ${d.location}</div>
+        <div class="hbp-stats">
+          <div class="hbp-stat"><strong>Start:</strong> ${d.start}</div>
+          <div class="hbp-stat"><strong>End:</strong> ${d.end}</div>
+          <div class="hbp-stat"><strong>Miles:</strong> ${d.miles}</div>
+          <div class="hbp-stat"><strong>Drive:</strong> ${d.drive}</div>
+        </div>
+        ${flagHtml}
+      </div>
+      <div class="hbp-body">
+        <div class="hbp-ov-label">Day Overview</div>
+        <div class="hbp-ov-line"></div>
+        <div class="hbp-ov-text">${d.overview}</div>
+      </div>
+      ${keyStopsHtml}
+      ${wxHtml}
+      ${overnightHtml}
+    </div>`;
+
+  document.getElementById('home-brief-panel').classList.add('open');
+  document.getElementById('slide-dim').classList.add('active');
+  document.getElementById('slide-dim').onclick = closeHomeBrief;
+  homeActive = i;
+  document.querySelectorAll('.hday-card').forEach((c, j) => c.classList.toggle('hactive', j === i));
+}
+
+function closeHomeBrief() {
+  document.getElementById('home-brief-panel').classList.remove('open');
+  document.getElementById('slide-dim').classList.remove('active');
+  document.getElementById('slide-dim').onclick = closeDayDive;
+  document.querySelectorAll('.hday-card').forEach(c => c.classList.remove('hactive'));
+}
+
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   state.currentScreen = id;
   if (id === 'screen-daily') renderDayTable();
+  if (id === 'screen-home') renderHomeCards();
   closeDayDive();
 }
 
@@ -2050,28 +2866,41 @@ function closeDayDive() {
 // ─── RENDER DAY TABLE ───
 function renderDayTable() {
   const container = document.getElementById('day-rows-container');
-  container.innerHTML = dayData.map((d,i) => `
-    <div class="day-row ${i===1?'active-day':''}" onclick="dayTap(${i})">
+  const barColors = { depart:'#22c55e', outbound:'#ff6b2b', apex:'#3b82f6', return:'#ff9166' };
+  let html = '<div class="day-cards-list">';
+  dayData.forEach((d,i) => {
+    const metaParts = d.meta.split('·');
+    const metaA = metaParts[0] ? metaParts[0].trim() : '';
+    const metaB = metaParts[1] ? metaParts[1].trim() : '';
+    const milesDisplay = d.miles > 0 ? d.miles : '—';
+    const baseClass = d.miles === 0 ? 'dash' : '';
+    const miLabel = d.miles > 0 ? 'miles' : 'base';
+    const activeClass = i === 0 ? 'active-day' : '';
+    const tagsHtml = d.tags.map(t => `<span class="day-tag ${t}">${t}</span>`).join('');
+    const metaSepHtml = metaB ? `<span class="day-meta-sep"></span><span>${metaB}</span>` : '';
+    html += `
+    <div class="day-row ${activeClass}" onclick="dayTap(${i})">
+      <div class="day-phase-bar" style="background:${barColors[d.phase]}"></div>
       <div class="day-num-col">
         <div class="day-num">${d.day}</div>
         <div class="day-dot" style="background:${phaseColors[d.phase]}"></div>
       </div>
       <div class="day-content">
         <div class="day-route">${d.route}</div>
-        <div class="day-meta"><span>${d.meta}</span></div>
+        <div class="day-meta"><span>${metaA}</span>${metaSepHtml}</div>
         <div class="day-desc">${d.desc}</div>
-        <div class="day-tags">
-          ${d.tags.map(t=>`<span class="day-tag ${t}">${t}</span>`).join('')}
-        </div>
+        <div class="day-tags">${tagsHtml}</div>
       </div>
       <div class="day-badge">
-        <div class="day-mi">${d.miles > 0 ? d.miles : '—'}</div>
-        <div class="day-mi-label">miles</div>
+        <div class="day-mi ${baseClass}">${milesDisplay}</div>
+        <div class="day-mi-label">${miLabel}</div>
+        <div class="day-arrow">→</div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  });
+  html += '</div>';
+  container.innerHTML = html;
 }
-
 function dayTap(i) {
   document.querySelectorAll('.day-row').forEach((r,j) => r.classList.toggle('active-day', j===i));
   showDayDive(i);
@@ -2447,16 +3276,20 @@ function setVibe(el, mode) {
 
 // ─── FOOD TAB ───
 function switchDiveTab(tab, btn) {
-  document.querySelectorAll('.slide-panel .nav-pill').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.slide-panel .nav-pills .nav-pill').forEach(p => p.classList.remove('active'));
   btn.classList.add('active');
+  const allVibes = ['vibe-default','vibe-explore','vibe-food','vibe-rest'];
   if (tab === 'food') {
-    ['vibe-default','vibe-explore','vibe-rest'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.style.display = 'none';
-    });
+    allVibes.forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
     const food = document.getElementById('vibe-food');
     if (food) food.style.display = 'block';
     document.querySelectorAll('.vibe-pill').forEach(p => p.classList.remove('sel'));
+  } else {
+    allVibes.forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+    const def = document.getElementById('vibe-default');
+    if (def) def.style.display = 'block';
+    const first = document.querySelector('.vibe-pill');
+    if (first) { document.querySelectorAll('.vibe-pill').forEach(p => p.classList.remove('sel')); first.classList.add('sel'); }
   }
 }
 
@@ -2492,6 +3325,59 @@ document.getElementById('event-modal').addEventListener('click', function(e) {
 
 // ─── INIT ───
 renderDayTable();
+renderHomeCards();
 </script>
+<!-- ═══════════════════════════════════════
+     BOTTOM NAV
+═══════════════════════════════════════ -->
+<nav class="bottom-nav" id="bottom-nav">
+
+  <button class="bn-btn bn-active" id="bn-home" onclick="navTo('screen-home')">
+    <div class="bn-indicator"></div>
+    <div class="bn-icon">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <path d="M3 9.5L11 3l8 6.5V19a1 1 0 01-1 1H14v-5H8v5H4a1 1 0 01-1-1V9.5z" stroke="#888" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="bn-label">Home</div>
+  </button>
+
+  <button class="bn-btn" id="bn-daily" onclick="navTo('screen-daily')">
+    <div class="bn-indicator"></div>
+    <div class="bn-icon">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <rect x="3" y="4" width="16" height="15" rx="2" stroke="#888" stroke-width="1.5"/>
+        <line x1="7" y1="2" x2="7" y2="6" stroke="#888" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="15" y1="2" x2="15" y2="6" stroke="#888" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="9" x2="19" y2="9" stroke="#888" stroke-width="1.5"/>
+        <line x1="7" y1="13" x2="15" y2="13" stroke="#888" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="7" y1="16.5" x2="12" y2="16.5" stroke="#888" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="bn-label">Route Details</div>
+  </button>
+
+</nav>
+
+<script>
+function navTo(screenId) {
+  showScreen(screenId);
+  document.querySelectorAll('.bn-btn').forEach(b => b.classList.remove('bn-active'));
+  const map = { 'screen-home':'bn-home', 'screen-daily':'bn-daily' };
+  const target = document.getElementById(map[screenId]);
+  if (target) target.classList.add('bn-active');
+}
+</script>
+
+<!-- ═══════════════════════════════════════
+     HOME BRIEF SLIDE PANEL
+═══════════════════════════════════════ -->
+<div class="home-brief-panel" id="home-brief-panel">
+  <div class="hbp-header">
+    <button class="hbp-back" onclick="closeHomeBrief()">← Back</button>
+  </div>
+  <div class="hbp-scroll" id="hbp-scroll"></div>
+</div>
+
 </body>
 </html>
