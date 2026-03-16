@@ -680,6 +680,13 @@ input[type=range]::-webkit-slider-thumb {
   margin-bottom: 5px;
 }
 .day-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.day-desc {
+  font-size: 11px;
+  color: var(--text3);
+  line-height: 1.45;
+  margin-bottom: 5px;
+  font-family: var(--mono);
+}
 .day-tag {
   font-family: var(--mono);
   font-size: 8px;
@@ -1627,11 +1634,11 @@ input[type=range]::-webkit-slider-thumb {
     <div class="header-top">
       <div>
         <div class="header-eyebrow">Claud v1.1 · Day Dive</div>
-        <div class="header-title">Barstow, CA</div>
+        <div class="header-title" id="dive-title">Day 1</div>
       </div>
       <div class="header-badge">GX478</div>
     </div>
-    <div class="header-sub">Day 2 · 11:42am · Moab in 94 mi</div>
+    <div class="header-sub" id="dive-sub">Loading…</div>
   </div>
 
   <div class="nav-pills">
@@ -1642,133 +1649,8 @@ input[type=range]::-webkit-slider-thumb {
     <button class="nav-pill active"><span class="dot" style="background:var(--orange)"></span>Day Dive</button>
   </div>
 
-  <div class="screen-body">
-    <div class="intown-status">
-      <div class="status-dot"></div>
-      <div class="status-text"><strong>On track.</strong> Next anchor: Las Vegas by 4pm. 94 mi remaining today.</div>
-    </div>
-
-    <div class="fuel-alert">
-      <div class="fuel-icon">⛽</div>
-      <div class="fuel-text"><strong>Fuel up here.</strong> 67 mi gap after Barstow. Next station in Baker.</div>
-      <div class="fuel-price">$4.18</div>
-    </div>
-
-    <div style="padding:10px 16px 6px">
-      <div style="font-size:9px;font-family:var(--mono);color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">What's your vibe?</div>
-      <div class="vibe-row" style="padding:0;border-bottom:none;margin-bottom:0">
-        <div class="vibe-pill sel" onclick="setVibe(this)">Quick stop</div>
-        <div class="vibe-pill" onclick="setVibe(this)">Want to explore</div>
-        <div class="vibe-pill" onclick="setVibe(this)">Need a break</div>
-        <div class="vibe-pill" onclick="setVibe(this)">Skip town</div>
-      </div>
-    </div>
-
-    <div class="section-divider"></div>
-
-    <!-- POI: History -->
-    <div class="poi-section">
-      <div class="poi-section-head">
-        <div class="poi-section-dot" style="background:#D85A30"></div>
-        <div class="poi-section-label">History nearby</div>
-      </div>
-      <div class="poi-card">
-        <div class="poi-card-top">
-          <div class="poi-card-name">Route 66 Mother Road Museum</div>
-          <div class="poi-card-dist">0.3 mi · walk</div>
-        </div>
-        <div class="poi-card-type">Historic museum · Route 66 artifacts</div>
-        <div class="poi-card-tags">
-          <span class="pct live">open now</span>
-          <span class="pct">$5 entry</span>
-          <span class="pct">45 min</span>
-          <span class="pct cat">history</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- POI: Roadside -->
-    <div class="poi-section">
-      <div class="poi-section-head">
-        <div class="poi-section-dot" style="background:#ff6b2b"></div>
-        <div class="poi-section-label">Roadside oddities</div>
-      </div>
-      <div class="poi-card">
-        <div class="poi-card-top">
-          <div class="poi-card-name">Amboy Crater</div>
-          <div class="poi-card-dist">22 mi · 25 min</div>
-        </div>
-        <div class="poi-card-type">Volcanic cinder cone · BLM land</div>
-        <div class="poi-card-tags">
-          <span class="pct live">open always</span>
-          <span class="pct">free</span>
-          <span class="pct">60 min</span>
-          <span class="pct cat">roadside</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- POI: Native Heritage -->
-    <div class="poi-section">
-      <div class="poi-section-head">
-        <div class="poi-section-dot" style="background:#a855f7"></div>
-        <div class="poi-section-label">Native heritage</div>
-      </div>
-      <div class="poi-card">
-        <div class="poi-card-top">
-          <div class="poi-card-name">Calico Ghost Town</div>
-          <div class="poi-card-dist">7.2 mi · 9 min</div>
-        </div>
-        <div class="poi-card-type">1800s silver mining ghost town</div>
-        <div class="poi-card-tags">
-          <span class="pct live">open now</span>
-          <span class="pct">$8 entry</span>
-          <span class="pct">90 min</span>
-          <span class="pct cat">ghost town</span>
-        </div>
-      </div>
-    </div>
-
-    <button class="none-btn" onclick="expandOptions()">
-      None of these work →
-    </button>
-
-    <!-- Expanded options (hidden by default) -->
-    <div id="expanded-options" style="display:none">
-      <div style="padding:0 16px 6px">
-        <div style="font-size:9px;font-family:var(--mono);color:var(--green);text-transform:uppercase;letter-spacing:.1em">More options found</div>
-      </div>
-      <div class="poi-section" style="padding-top:6px">
-        <div class="poi-card new-result">
-          <div class="poi-card-top">
-            <div class="poi-card-name">Mojave Desert Museum</div>
-            <div class="poi-card-dist">1.1 mi · 3 min</div>
-          </div>
-          <div class="poi-card-type">Desert ecology · interactive exhibits</div>
-          <div class="poi-card-tags">
-            <span class="pct live">open now</span>
-            <span class="pct">free</span>
-            <span class="pct">30 min</span>
-          </div>
-        </div>
-        <div class="poi-card new-result">
-          <div class="poi-card-top">
-            <div class="poi-card-name">Idle Spurs Steakhouse</div>
-            <div class="poi-card-dist">0.6 mi · 2 min</div>
-          </div>
-          <div class="poi-card-type">Local steakhouse · Route 66 classic</div>
-          <div class="poi-card-tags">
-            <span class="pct live">open now</span>
-            <span class="pct">$$</span>
-            <span class="pct">45 min</span>
-          </div>
-        </div>
-      </div>
-      <div class="skip-card" onclick="showToast('Skipping Barstow · +28 min buffer added')">
-        <div class="skip-card-name">Skip Barstow entirely →</div>
-        <div class="skip-card-sub">Drive straight to Baker. Gain +28 min buffer this evening.</div>
-      </div>
-    </div>
+  <div class="screen-body" id="dive-body">
+    <!-- rendered dynamically by showDayDive() -->
   </div>
 </div>
 
@@ -1902,13 +1784,107 @@ const detourMins = [0,5,20,45,480];
 
 // ─── DAY DATA ───
 const dayData = [
-  { day:'D1', route:'Los Angeles → Barstow', meta:'148 mi · 2.5h', camp:'camp', miles:148, phase:'depart', tags:['camp','fuel'] },
-  { day:'D2', route:'Barstow → Las Vegas', meta:'157 mi · 2.2h', camp:'hotel', miles:157, phase:'depart', tags:['hotel','fuel'] },
-  { day:'D3', route:'Las Vegas → Kanab, UT', meta:'163 mi · 2.8h', camp:'camp', miles:163, phase:'outbound', tags:['camp'] },
-  { day:'D4', route:'Kanab → Capitol Reef', meta:'125 mi · 2.2h', camp:'camp', miles:125, phase:'outbound', tags:['camp','fuel'] },
-  { day:'D5', route:'Capitol Reef · Rest Day', meta:'0 mi · full explore', camp:'camp', miles:0, phase:'outbound', tags:['camp','event'] },
-  { day:'D6', route:'Capitol Reef → Moab', meta:'115 mi · 2.0h', camp:'hotel', miles:115, phase:'apex', tags:['hotel'] },
-  { day:'D7', route:'Moab · Expedition End', meta:'0 mi', camp:'hotel', miles:0, phase:'apex', tags:['hotel','event'] },
+  {
+    day:'D1', route:'Los Angeles → Barstow', meta:'148 mi · 2.5h', camp:'camp', miles:148, phase:'depart', tags:['camp','fuel'], desc:'Mojave Desert entry. Route 66 corridor. Fuel before the 67 mi gap into Baker.',
+    location:'Barstow, CA', statusText:'<strong>On track.</strong> Next stop: Barstow. 148 mi from LA.',
+    fuel:{ show:true, text:'<strong>Fuel up here.</strong> 67 mi gap ahead. Next station in Baker.', price:'$4.18' },
+    pois:[
+      { cat:'History nearby', dotColor:'#D85A30', name:'Route 66 Mother Road Museum', dist:'0.3 mi · walk', type:'Historic museum · Route 66 artifacts', tags:[{t:'open now',cls:'live'},{t:'$5 entry',cls:''},{t:'45 min',cls:''},{t:'history',cls:'cat'}] },
+      { cat:'Roadside oddities', dotColor:'#ff6b2b', name:'Amboy Crater', dist:'22 mi · 25 min', type:'Volcanic cinder cone · BLM land', tags:[{t:'open always',cls:'live'},{t:'free',cls:''},{t:'60 min',cls:''},{t:'roadside',cls:'cat'}] },
+      { cat:'Ghost towns', dotColor:'#a855f7', name:'Calico Ghost Town', dist:'7.2 mi · 9 min', type:'1800s silver mining ghost town', tags:[{t:'open now',cls:'live'},{t:'$8 entry',cls:''},{t:'90 min',cls:''},{t:'ghost town',cls:'cat'}] },
+    ],
+    expanded:[
+      { name:'Mojave Desert Museum', dist:'1.1 mi · 3 min', type:'Desert ecology · interactive exhibits', tags:[{t:'open now',cls:'live'},{t:'free',cls:''},{t:'30 min',cls:''}] },
+      { name:'Idle Spurs Steakhouse', dist:'0.6 mi · 2 min', type:'Local steakhouse · Route 66 classic', tags:[{t:'open now',cls:'live'},{t:'$$',cls:''},{t:'45 min',cls:''}] },
+    ],
+    skipText:'Skip Barstow entirely', skipSub:'Drive straight to Baker. Gain +28 min buffer tonight.',
+  },
+  {
+    day:'D2', route:'Barstow → Las Vegas', meta:'157 mi · 2.2h', camp:'hotel', miles:157, phase:'depart', tags:['hotel','fuel'], desc:'I-15 push through the Mojave. World\'s tallest thermometer in Baker. Hotel night in Vegas.',
+    location:'Baker, CA',  statusText:'<strong>On track.</strong> Las Vegas by 4pm. 157 mi today.',
+    fuel:{ show:true, text:'<strong>Last cheap fuel.</strong> Baker prices beat Vegas by $0.60/gal.', price:'$4.22' },
+    pois:[
+      { cat:'Roadside oddities', dotColor:'#ff6b2b', name:'World\'s Tallest Thermometer', dist:'0.1 mi · walk', type:'134ft roadside landmark · free photo stop', tags:[{t:'always open',cls:'live'},{t:'free',cls:''},{t:'10 min',cls:'cat'}] },
+      { cat:'History nearby', dotColor:'#D85A30', name:'Mojave National Preserve', dist:'14 mi · 18 min', type:'WWII Cima Dome · lava tubes · dunes', tags:[{t:'open always',cls:'live'},{t:'free · NPS',cls:''},{t:'2–4 hrs',cls:'cat'}] },
+    ],
+    expanded:[
+      { name:'Mad Greek Café', dist:'0.2 mi · walk', type:'Legendary diner · gyros + shakes', tags:[{t:'open now',cls:'live'},{t:'$',cls:''},{t:'30 min',cls:''}] },
+      { name:'Kelso Dunes', dist:'24 mi · 30 min', type:'600ft singing sand dunes · BLM', tags:[{t:'open always',cls:'live'},{t:'free',cls:''},{t:'2 hrs',cls:''}] },
+    ],
+    skipText:'Skip Baker · push to Vegas', skipSub:'Save 45 min. Hit Las Vegas Strip by 2:30pm.',
+  },
+  {
+    day:'D3', route:'Las Vegas → Kanab, UT', meta:'163 mi · 2.8h', camp:'camp', miles:163, phase:'outbound', tags:['camp'], desc:'Valley of Fire on the way out. Crossing into Utah. Dispersed camp near Kanab Creek.',
+    location:'Valley of Fire, NV', statusText:'<strong>On track.</strong> Kanab by 5pm. Stunning corridor today.',
+    fuel:{ show:false, text:'', price:'' },
+    pois:[
+      { cat:'Geology nearby', dotColor:'#3b82f6', name:'Valley of Fire State Park', dist:'1.2 mi · 3 min', type:'Aztec sandstone formations · petroglyphs', tags:[{t:'open now',cls:'live'},{t:'$15 entry',cls:''},{t:'2–3 hrs',cls:'cat'}] },
+      { cat:'History nearby', dotColor:'#D85A30', name:'Lost City Museum', dist:'4.8 mi · 7 min', type:'Ancient Ancestral Puebloan site · NV', tags:[{t:'open now',cls:'live'},{t:'$5 entry',cls:''},{t:'45 min',cls:'cat'}] },
+      { cat:'Dark sky', dotColor:'#6366f1', name:'Lake Mead viewpoint', dist:'8 mi · 12 min', type:'Bortle 3 · best tonight after 9pm', tags:[{t:'tonight optimal',cls:'live'},{t:'free',cls:''},{t:'Bortle 3',cls:'cat'}] },
+    ],
+    expanded:[
+      { name:'Moapa Paiute Travel Plaza', dist:'0.4 mi · on route', type:'Fuel + Subway · last services for 80mi', tags:[{t:'open now',cls:'live'},{t:'fuel',cls:'warn'},{t:'$',cls:''}] },
+    ],
+    skipText:'Skip Valley of Fire · push to Kanab', skipSub:'Arrive Kanab by 3pm. Extra time for Coral Pink Sand Dunes.',
+  },
+  {
+    day:'D4', route:'Kanab → Capitol Reef', meta:'125 mi · 2.2h', camp:'camp', miles:125, phase:'outbound', tags:['camp','fuel'], desc:'Hwy 12 — one of America\'s most scenic byways. Coral Pink Dunes detour. Fuel in Kanab — 94 mi gap ahead.',
+    location:'Kanab, UT', statusText:'<strong>On track.</strong> Capitol Reef by 2pm. 125 mi on Hwy 89.',
+    fuel:{ show:true, text:'<strong>Fill here.</strong> No fuel for 94 mi after Kanab on Hwy 12.', price:'$4.51' },
+    pois:[
+      { cat:'Native heritage', dotColor:'#a855f7', name:'Kanab Heritage Museum', dist:'0.5 mi · walk', type:'Paiute history + classic Hollywood Westerns', tags:[{t:'open now',cls:'live'},{t:'$3 entry',cls:''},{t:'45 min',cls:'cat'}] },
+      { cat:'Roadside oddities', dotColor:'#ff6b2b', name:'Coral Pink Sand Dunes', dist:'12 mi · 15 min', type:'Pink quartz sand · OHV accessible', tags:[{t:'open always',cls:'live'},{t:'$15 entry',cls:''},{t:'2 hrs',cls:'cat'}] },
+      { cat:'Photography spots', dotColor:'#22c55e', name:'The Wave trailhead', dist:'28 mi · 35 min', type:'Permit required · world-class slot canyon', tags:[{t:'permit req.',cls:'warn'},{t:'6 mi RT',cls:''},{t:'photo',cls:'cat'}] },
+    ],
+    expanded:[
+      { name:'Sego Canyon Petroglyphs', dist:'2 mi off Hwy 24', type:'3 styles · 2000+ year old rock art', tags:[{t:'open always',cls:'live'},{t:'free',cls:''},{t:'45 min',cls:''}] },
+    ],
+    skipText:'Skip Kanab stops · straight to Capitol Reef', skipSub:'Arrive by noon. Extra time for Cassidy Arch hike.',
+  },
+  {
+    day:'D5', route:'Capitol Reef · Rest Day', meta:'Rest day · full explore', camp:'camp', miles:0, phase:'outbound', tags:['camp','event'], desc:'No driving. Hike Cassidy Arch. Pick fruit in Fruita orchards. Bortle 2 dark sky tonight.',
+    location:'Capitol Reef NP, UT', statusText:'<strong>Rest day.</strong> Base camp at Fruita Campground. No driving needed.',
+    fuel:{ show:false, text:'', price:'' },
+    pois:[
+      { cat:'Geology nearby', dotColor:'#3b82f6', name:'Cassidy Arch Trail', dist:'On site', type:'3.4 mi RT · 670ft gain · stunning arch', tags:[{t:'open now',cls:'live'},{t:'free · NPS',cls:''},{t:'2.5 hrs',cls:'cat'}] },
+      { cat:'History nearby', dotColor:'#D85A30', name:'Fruita Historic District', dist:'0.2 mi · walk', type:'1880s Mormon pioneer orchards · still fruiting', tags:[{t:'open now',cls:'live'},{t:'free',cls:''},{t:'1 hr',cls:'cat'}] },
+      { cat:'Photography spots', dotColor:'#22c55e', name:'Sunset Point · Capitol Dome', dist:'0.5 mi · 5 min', type:'Golden hour on dome formations — unmissable', tags:[{t:'tonight optimal',cls:'live'},{t:'free',cls:''},{t:'photo',cls:'cat'}] },
+      { cat:'Dark sky', dotColor:'#6366f1', name:'Fruita Campground field', dist:'On site', type:'Bortle 2 · Milky Way overhead after 9:30pm', tags:[{t:'tonight optimal',cls:'live'},{t:'Bortle 2',cls:''},{t:'free',cls:'cat'}] },
+    ],
+    expanded:[
+      { name:'Hickman Bridge Trail', dist:'On site', type:'1.8 mi RT · natural bridge · easy', tags:[{t:'open now',cls:'live'},{t:'free',cls:''},{t:'1.5 hrs',cls:''}] },
+    ],
+    skipText:'Pack up early · head to Moab', skipSub:'Gain a full day in Moab. Arrives by 1pm.',
+  },
+  {
+    day:'D6', route:'Capitol Reef → Moab', meta:'115 mi · 2.0h', camp:'hotel', miles:115, phase:'apex', tags:['hotel'], desc:'Short drive into canyon country. Dead Horse Point on the way in. Hotel night — shower deserved.',
+    location:'Moab, UT', statusText:'<strong>Apex day.</strong> You\'ve arrived. Settle in — Moab delivers.',
+    fuel:{ show:false, text:'', price:'' },
+    pois:[
+      { cat:'Roadside oddities', dotColor:'#ff6b2b', name:'Dead Horse Point', dist:'9 mi · 15 min', type:'Most photographed view in Utah', tags:[{t:'open now',cls:'live'},{t:'$20 entry',cls:''},{t:'2 hrs',cls:'cat'}] },
+      { cat:'History nearby', dotColor:'#D85A30', name:'Moab Museum', dist:'0.3 mi · walk', type:'Uranium mining history + indigenous cultures', tags:[{t:'open now',cls:'live'},{t:'$5 entry',cls:''},{t:'1 hr',cls:'cat'}] },
+      { cat:'Food intel', dotColor:'#f59e0b', name:'Moab Brewery', dist:'0.8 mi · 3 min', type:'Best craft beer in canyon country — Dead Horse Ale', tags:[{t:'open now',cls:'live'},{t:'$$',cls:''},{t:'dinner',cls:'cat'}] },
+    ],
+    expanded:[
+      { name:'Corona Arch Trail', dist:'3 mi · 5 min', type:'1.5 mi RT · easy · iconic arch', tags:[{t:'open now',cls:'live'},{t:'free',cls:''},{t:'1.5 hrs',cls:''}] },
+      { name:'Arches NP sunset drive', dist:'5 mi · 8 min', type:'Timed-entry required after 7am', tags:[{t:'permit req.',cls:'warn'},{t:'$35/vehicle',cls:''},{t:'sunset',cls:''}] },
+    ],
+    skipText:'Head straight to hotel', skipSub:'Skip stops. Check in early, rest up for Day 7.',
+  },
+  {
+    day:'D7', route:'Moab · Expedition End', meta:'Final day', camp:'hotel', miles:0, phase:'apex', tags:['hotel','event'], desc:'Arches NP sunrise. Delicate Arch at 6am. Best breakfast in Moab at Love Muffin. You made it.',
+    location:'Moab, UT', statusText:'<strong>Final day.</strong> Expedition complete. Make it count.',
+    fuel:{ show:false, text:'', price:'' },
+    pois:[
+      { cat:'Geology nearby', dotColor:'#3b82f6', name:'Arches National Park', dist:'5 mi · 8 min', type:'Landscape Arch · 290ft span · world record', tags:[{t:'open now',cls:'live'},{t:'$35/vehicle',cls:''},{t:'half day',cls:'cat'}] },
+      { cat:'Photography spots', dotColor:'#22c55e', name:'Delicate Arch at sunrise', dist:'12 mi · 18 min', type:'3 mi RT · arrive by 6am for golden light', tags:[{t:'sunrise: 6:48am',cls:'live'},{t:'$35/vehicle',cls:''},{t:'photo',cls:'cat'}] },
+      { cat:'Food intel', dotColor:'#f59e0b', name:'Love Muffin Café', dist:'0.2 mi · walk', type:'Best breakfast in Moab — get the huevos', tags:[{t:'open 7am',cls:'live'},{t:'$',cls:''},{t:'breakfast',cls:'cat'}] },
+    ],
+    expanded:[
+      { name:'Canyonlands NP · Island in the Sky', dist:'32 mi · 40 min', type:'Mesa Verde overlook · Grand Canyon scale', tags:[{t:'open now',cls:'live'},{t:'$35/vehicle',cls:''},{t:'half day',cls:''}] },
+    ],
+    skipText:'Head home early', skipSub:'Beat the Sunday traffic back to LA.',
+  },
 ];
 
 const phaseColors = { depart:'var(--green)', outbound:'var(--orange)', apex:'var(--blue)', return:'#ff9166' };
@@ -1933,6 +1909,7 @@ function renderDayTable() {
       <div class="day-content">
         <div class="day-route">${d.route}</div>
         <div class="day-meta"><span>${d.meta}</span></div>
+        <div class="day-desc">${d.desc}</div>
         <div class="day-tags">
           ${d.tags.map(t=>`<span class="day-tag ${t}">${t}</span>`).join('')}
         </div>
@@ -1947,7 +1924,103 @@ function renderDayTable() {
 
 function dayTap(i) {
   document.querySelectorAll('.day-row').forEach((r,j) => r.classList.toggle('active-day', j===i));
-  showToast(`Day ${i+1}: ${dayData[i].route}`);
+  showDayDive(i);
+}
+
+// ─── DAY DIVE RENDERER ───
+function showDayDive(i) {
+  const d = dayData[i];
+
+  // Update header
+  document.getElementById('dive-title').textContent = d.location;
+  document.getElementById('dive-sub').textContent = `${d.day} · ${d.route} · ${d.meta}`;
+
+  // Build poi sections HTML
+  const poisHTML = d.pois.map(p => `
+    <div class="poi-section">
+      <div class="poi-section-head">
+        <div class="poi-section-dot" style="background:${p.dotColor}"></div>
+        <div class="poi-section-label">${p.cat}</div>
+      </div>
+      <div class="poi-card" onclick="showToast('${p.name} selected')">
+        <div class="poi-card-top">
+          <div class="poi-card-name">${p.name}</div>
+          <div class="poi-card-dist">${p.dist}</div>
+        </div>
+        <div class="poi-card-type">${p.type}</div>
+        <div class="poi-card-tags">
+          ${p.tags.map(t=>`<span class="pct ${t.cls}">${t.t}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  // Build expanded options HTML
+  const expandedHTML = d.expanded.map(p => `
+    <div class="poi-card new-result" onclick="showToast('${p.name} selected')">
+      <div class="poi-card-top">
+        <div class="poi-card-name">${p.name}</div>
+        <div class="poi-card-dist">${p.dist}</div>
+      </div>
+      <div class="poi-card-type">${p.type}</div>
+      <div class="poi-card-tags">
+        ${p.tags.map(t=>`<span class="pct ${t.cls}">${t.t}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  // Fuel alert block
+  const fuelHTML = d.fuel.show ? `
+    <div class="fuel-alert">
+      <div class="fuel-icon">⛽</div>
+      <div class="fuel-text">${d.fuel.text}</div>
+      <div class="fuel-price">${d.fuel.price}</div>
+    </div>
+  ` : '';
+
+  // Render the full screen body
+  document.getElementById('dive-body').innerHTML = `
+    <div class="intown-status">
+      <div class="status-dot"></div>
+      <div class="status-text">${d.statusText}</div>
+    </div>
+
+    ${fuelHTML}
+
+    <div style="padding:10px 16px 6px">
+      <div style="font-size:9px;font-family:var(--mono);color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">What's your vibe?</div>
+      <div class="vibe-row" style="padding:0;border-bottom:none;margin-bottom:0">
+        <div class="vibe-pill sel" onclick="setVibe(this)">Quick stop</div>
+        <div class="vibe-pill" onclick="setVibe(this)">Want to explore</div>
+        <div class="vibe-pill" onclick="setVibe(this)">Need a break</div>
+        <div class="vibe-pill" onclick="setVibe(this)">Skip day</div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    ${poisHTML}
+
+    <button class="none-btn" onclick="expandDayOptions(this)">
+      None of these work →
+    </button>
+
+    <div class="expanded-options-block" style="display:none">
+      <div style="padding:0 16px 6px">
+        <div style="font-size:9px;font-family:var(--mono);color:var(--green);text-transform:uppercase;letter-spacing:.1em">More options found</div>
+      </div>
+      <div class="poi-section" style="padding-top:6px">
+        ${expandedHTML}
+      </div>
+      <div class="skip-card" onclick="showToast('${d.skipText} — ${d.skipSub}')">
+        <div class="skip-card-name">${d.skipText} →</div>
+        <div class="skip-card-sub">${d.skipSub}</div>
+      </div>
+    </div>
+  `;
+
+  // Navigate to Day Dive screen
+  showScreen('screen-intown');
 }
 
 // ─── DRIVE IMPORT ───
@@ -2158,12 +2231,12 @@ function setVibe(el) {
 }
 
 // ─── EXPAND OPTIONS ───
-function expandOptions() {
-  const expanded = document.getElementById('expanded-options');
-  const btn = document.querySelector('.none-btn');
-  expanded.style.display = 'block';
+function expandOptions() {}
+function expandDayOptions(btn) {
+  const block = btn.closest('.screen-body').querySelector('.expanded-options-block');
+  if (block) { block.style.display = 'block'; }
   btn.style.display = 'none';
-  showToast('Found 3 more options nearby', 'Expanded');
+  showToast('More options found nearby', 'Expanded');
 }
 
 // ─── MAP ANNOTATION ───
@@ -2189,6 +2262,7 @@ document.getElementById('event-modal').addEventListener('click', function(e) {
 
 // ─── INIT ───
 renderDayTable();
+showDayDive(0);
 </script>
 </body>
 </html>
