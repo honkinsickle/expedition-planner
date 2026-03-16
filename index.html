@@ -1334,7 +1334,7 @@ input[type=range]::-webkit-slider-thumb {
     <button class="nav-pill" onclick="showScreen('screen-daily')"><span class="dot" style="background:var(--orange)"></span>Daily Table</button>
     <button class="nav-pill" onclick="showScreen('screen-csv')"><span class="dot" style="background:var(--blue)"></span>MyMaps CSV</button>
     <button class="nav-pill" onclick="showScreen('screen-map')"><span class="dot" style="background:var(--green)"></span>Map</button>
-    <button class="nav-pill" onclick="showDayDive(0)"><span class="dot" style="background:var(--orange)"></span>Day Dive</button>
+    <button class="nav-pill" onclick="showDayDive(0)"><span class="dot" style="background:var(--orange)"></span>Detail</button>
   </div>
 
   <div class="screen-body">
@@ -1578,7 +1578,7 @@ input[type=range]::-webkit-slider-thumb {
     <button class="nav-pill active"><span class="dot" style="background:var(--orange)"></span>Daily Table</button>
     <button class="nav-pill" onclick="showScreen('screen-csv')"><span class="dot" style="background:var(--blue)"></span>MyMaps CSV</button>
     <button class="nav-pill" onclick="showScreen('screen-map')"><span class="dot" style="background:var(--green)"></span>Map</button>
-    <button class="nav-pill" onclick="showDayDive(0)"><span class="dot" style="background:var(--orange)"></span>Day Dive</button>
+    <button class="nav-pill" onclick="showDayDive(0)"><span class="dot" style="background:var(--orange)"></span>Detail</button>
   </div>
 
   <div class="screen-body">
@@ -1616,7 +1616,7 @@ input[type=range]::-webkit-slider-thumb {
     <button class="nav-pill" onclick="showScreen('screen-daily')"><span class="dot" style="background:var(--orange)"></span>Daily Table</button>
     <button class="nav-pill" onclick="showScreen('screen-csv')"><span class="dot" style="background:var(--blue)"></span>MyMaps CSV</button>
     <button class="nav-pill active"><span class="dot" style="background:var(--green)"></span>Map</button>
-    <button class="nav-pill" onclick="showDayDive(0)"><span class="dot" style="background:var(--orange)"></span>Day Dive</button>
+    <button class="nav-pill" onclick="showDayDive(0)"><span class="dot" style="background:var(--orange)"></span>Detail</button>
   </div>
 
   <div class="map-placeholder">
@@ -1722,7 +1722,11 @@ input[type=range]::-webkit-slider-thumb {
     <div class="header-badge" style="margin-top:4px;flex-shrink:0">GX478</div>
   </div>
 
-  <div class="slide-panel-body" id="dive-body">
+  <div class="nav-pills" style="border-bottom:1px solid var(--border)">
+    <button class="nav-pill" onclick="closeDayDive()">← Back</button>
+    <button class="nav-pill active"><span class="dot" style="background:var(--orange)"></span>POIs</button>
+    <button class="nav-pill" id="food-nav-pill" onclick="switchDiveTab('food',this)"><span class="dot" style="background:#f59e0b"></span>Food</button>
+  </div>
     <!-- rendered dynamically by showDayDive() -->
   </div>
 </div>
@@ -1746,7 +1750,7 @@ input[type=range]::-webkit-slider-thumb {
     <button class="nav-pill" onclick="showScreen('screen-daily')"><span class="dot" style="background:var(--orange)"></span>Daily Table</button>
     <button class="nav-pill active"><span class="dot" style="background:var(--blue)"></span>MyMaps CSV</button>
     <button class="nav-pill" onclick="showScreen('screen-map')"><span class="dot" style="background:var(--green)"></span>Map</button>
-    <button class="nav-pill" onclick="showDayDive(0)"><span class="dot" style="background:var(--orange)"></span>Day Dive</button>
+    <button class="nav-pill" onclick="showDayDive(0)"><span class="dot" style="background:var(--orange)"></span>Detail</button>
   </div>
 
   <div class="screen-body">
@@ -1859,6 +1863,13 @@ const detourMins = [0,5,20,45,480];
 const dayData = [
   {
     day:'D1', route:'Los Angeles → Barstow', meta:'148 mi · 2.5h', camp:'camp', miles:148, phase:'depart', tags:['camp','fuel'], desc:'Mojave Desert entry. Route 66 corridor. Fuel before the 67 mi gap into Baker.',
+    food:[
+      { name:'Idle Spurs Steakhouse', type:'American · Route 66 classic', detail:'Locals-only steakhouse on Route 66. Go for the tri-tip.', tags:[{t:'open now',cls:'live'},{t:'$$',cls:''},{t:'dinner',cls:'cat'}] },
+      { name:'Peggy Sue\'s 50s Diner', type:'Diner · Yermo Rd', detail:'Retro 50s roadside diner. Milkshakes are mandatory.', tags:[{t:'open now',cls:'live'},{t:'$',cls:''},{t:'lunch',cls:'cat'}] },
+      { name:'Barstow Station Food Court', type:'Fast food · truck stop hybrid', detail:'Quick fuel-up stop. Not glamorous but functional on a drive day.', tags:[{t:'24hr',cls:'live'},{t:'$',cls:''}] },
+    ],
+    exploreData:{ title:'Explore mode · Barstow', items:['Detour to Amboy Crater — 22 mi off I-40, 60 min. Active volcanic cinder cone, completely free.','Calico Ghost Town — 7 mi north. Best preserved silver mining town in the Mojave. $8 entry.','Rainbow Basin Natural Area — 8 mi north. Technicolor badlands. Dispersed camping allowed.'] },
+    restData:{ title:'Rest stop · Barstow', items:['Black Bear Diner on E Main — big booths, strong coffee, stay as long as you need.','Barstow Community Pool — day passes available if you need to cool down ($5).','Starbucks on Lenwood Rd — wifi, AC, reliable. Good spot to regroup.'] },
     location:'Barstow, CA', statusText:'<strong>On track.</strong> Next stop: Barstow. 148 mi from LA.',
     fuel:{ show:true, text:'<strong>Fuel up here.</strong> 67 mi gap ahead. Next station in Baker.', price:'$4.18' },
     pois:[
@@ -1874,6 +1885,13 @@ const dayData = [
   },
   {
     day:'D2', route:'Barstow → Las Vegas', meta:'157 mi · 2.2h', camp:'hotel', miles:157, phase:'depart', tags:['hotel','fuel'], desc:'I-15 push through the Mojave. World\'s tallest thermometer in Baker. Hotel night in Vegas.',
+    food:[
+      { name:'Mad Greek Café · Baker', type:'Greek diner · I-15 landmark', detail:'A genuine desert institution. Gyros, baklava, and legendary milkshakes. Don\'t skip it.', tags:[{t:'open now',cls:'live'},{t:'$',cls:''},{t:'lunch',cls:'cat'}] },
+      { name:'In-N-Out · Las Vegas Blvd', type:'Burger · Nevada tradition', detail:'First In-N-Out after the California desert stretch. Animal style.', tags:[{t:'open now',cls:'live'},{t:'$',cls:''},{t:'fast',cls:'cat'}] },
+      { name:'Lotus of Siam · Las Vegas', type:'Thai · James Beard nominated', detail:'Best Thai food in America, according to most food writers. Book ahead.', tags:[{t:'dinner only',cls:'warn'},{t:'$$$',cls:''},{t:'must try',cls:'cat'}] },
+    ],
+    exploreData:{ title:'Explore mode · Baker / Vegas', items:['Mojave National Preserve — 14 mi east of Baker. Kelso Dunes sing. Cima Dome is covered in Joshua trees.','Valley of Fire State Park — 50 mi NE of Vegas. Best red rock in Nevada. Opens at sunrise.','Neon Museum · Las Vegas — graveyard of Vegas signs. Genuinely excellent. Book in advance.'] },
+    restData:{ title:'Rest stop · Baker / Vegas', items:['Bun Boy restaurant in Baker — classic roadside diner, huge booths, AC blasting.','Any Vegas Strip casino lobby — free AC, free people watching, clean restrooms.','Fashion Show Mall food court — full meal, sit down, recharge everything.'] },
     location:'Baker, CA',  statusText:'<strong>On track.</strong> Las Vegas by 4pm. 157 mi today.',
     fuel:{ show:true, text:'<strong>Last cheap fuel.</strong> Baker prices beat Vegas by $0.60/gal.', price:'$4.22' },
     pois:[
@@ -1888,6 +1906,13 @@ const dayData = [
   },
   {
     day:'D3', route:'Las Vegas → Kanab, UT', meta:'163 mi · 2.8h', camp:'camp', miles:163, phase:'outbound', tags:['camp'], desc:'Valley of Fire on the way out. Crossing into Utah. Dispersed camp near Kanab Creek.',
+    food:[
+      { name:'Escobar\'s Mexican · Mesquite, NV', type:'Mexican · border town classic', detail:'Last cheap food before Utah. Huge portions, cash preferred.', tags:[{t:'open now',cls:'live'},{t:'$',cls:''},{t:'lunch',cls:'cat'}] },
+      { name:'Kanab Creek Bakery', type:'Bakery café · Kanab main street', detail:'Best breakfast in Kanab. Fresh pastries, strong espresso, slow pace.', tags:[{t:'7am–2pm',cls:'warn'},{t:'$',cls:''},{t:'breakfast',cls:'cat'}] },
+      { name:'Willow Canyon Outdoor · Kanab', type:'Gear store + local intel', detail:'Not food, but the best place to get dispersed camp recommendations from locals.', tags:[{t:'open now',cls:'live'},{t:'free intel',cls:'cat'}] },
+    ],
+    exploreData:{ title:'Explore mode · Valley of Fire / Kanab', items:['Valley of Fire State Park — spectacular Aztec sandstone. White Domes loop is 1.1 mi, don\'t miss it.','Coral Pink Sand Dunes SP — 12 mi from Kanab. Rare pink quartz dunes, OHV accessible.','Kanab Heritage House Museum — small but excellent. Polygamy history, frontier life, Paiute culture.'] },
+    restData:{ title:'Rest stop · Kanab', items:['Kanab Creek Bakery — settle in for an hour. Good wifi, comfortable seating.','Kanab City Park on 100 East — picnic tables, shade trees, clean restrooms.','Houston\'s Trails End Restaurant — Kanab staple since 1959. Pie is exceptional.'] },
     location:'Valley of Fire, NV', statusText:'<strong>On track.</strong> Kanab by 5pm. Stunning corridor today.',
     fuel:{ show:false, text:'', price:'' },
     pois:[
@@ -1902,6 +1927,13 @@ const dayData = [
   },
   {
     day:'D4', route:'Kanab → Capitol Reef', meta:'125 mi · 2.2h', camp:'camp', miles:125, phase:'outbound', tags:['camp','fuel'], desc:'Hwy 12 — one of America\'s most scenic byways. Coral Pink Dunes detour. Fuel in Kanab — 94 mi gap ahead.',
+    food:[
+      { name:'Panguitch Bakery · Panguitch, UT', type:'Bakery · Hwy 89 stop', detail:'Midpoint on Hwy 12 corridor. Fresh pies, homemade bread. Worth a 10-min stop.', tags:[{t:'7am–5pm',cls:'warn'},{t:'$',cls:''},{t:'snack stop',cls:'cat'}] },
+      { name:'Café Diablo · Torrey, UT', type:'Southwest cuisine · James Beard noted', detail:'Best dinner on the Hwy 12 corridor. Rattlesnake cakes. Not a joke.', tags:[{t:'dinner only',cls:'warn'},{t:'$$$',cls:''},{t:'must try',cls:'cat'}] },
+      { name:'Rim Rock Restaurant · Torrey', type:'American · Capitol Reef adjacent', detail:'Simple, solid food. Right at the park entrance. Good for a post-hike meal.', tags:[{t:'open now',cls:'live'},{t:'$$',cls:''},{t:'dinner',cls:'cat'}] },
+    ],
+    exploreData:{ title:'Explore mode · Hwy 12 corridor', items:['Grand Staircase-Escalante NM — pull off at Head of the Rocks overlook. 270° panorama, no hiking required.','Anasazi State Park Museum · Boulder — 1000-year-old pueblo ruins. Excellent small museum. $5 entry.','Chimney Rock trailhead · Capitol Reef — 3.6 mi RT. Best intro hike in the park.'] },
+    restData:{ title:'Rest stop · Torrey / Capitol Reef', items:['Torrey Trading Post — porch seating, local craft beer, relaxed atmosphere.','Capitol Reef Visitor Center — AC, clean restrooms, excellent ranger intel for tomorrow.','Torrey Town Park — shade, picnic tables, surprisingly nice for a tiny town.'] },
     location:'Kanab, UT', statusText:'<strong>On track.</strong> Capitol Reef by 2pm. 125 mi on Hwy 89.',
     fuel:{ show:true, text:'<strong>Fill here.</strong> No fuel for 94 mi after Kanab on Hwy 12.', price:'$4.51' },
     pois:[
@@ -1916,6 +1948,13 @@ const dayData = [
   },
   {
     day:'D5', route:'Capitol Reef · Rest Day', meta:'Rest day · full explore', camp:'camp', miles:0, phase:'outbound', tags:['camp','event'], desc:'No driving. Hike Cassidy Arch. Pick fruit in Fruita orchards. Bortle 2 dark sky tonight.',
+    food:[
+      { name:'Fruita Orchards · pick your own', type:'Free fruit in season · NPS land', detail:'Apple, pear, peach trees along Scenic Drive. In season May–Oct, pick as much as you can eat.', tags:[{t:'free · NPS',cls:'live'},{t:'seasonal',cls:'warn'},{t:'unique',cls:'cat'}] },
+      { name:'Café Diablo · Torrey (6 mi)', type:'Southwest · best in region', detail:'If you didn\'t eat here last night, tonight\'s the night. Reservation recommended.', tags:[{t:'dinner only',cls:'warn'},{t:'$$$',cls:''},{t:'must try',cls:'cat'}] },
+      { name:'Gifford Homestead · on site', type:'Homemade pies + preserves · NPS', detail:'1908 homestead sells fresh pies baked daily. Sells out by noon. Go early.', tags:[{t:'9am–noon',cls:'warn'},{t:'$',cls:''},{t:'iconic',cls:'cat'}] },
+    ],
+    exploreData:{ title:'Explore mode · Capitol Reef rest day', items:['Grand Wash trail — 4.4 mi RT through a slot canyon. Flat, accessible, spectacular walls.','Capitol Gorge petroglyphs — 2 mi RT. 1000-year-old Fremont petroglyphs + pioneer register.','Cathedral Valley loop — 60-mile dirt road. Requires high clearance. Monolith formations, completely alone.'] },
+    restData:{ title:'Rest stop · Fruita campground', items:['Shady picnic area by the orchard — hammock-worthy trees, running water nearby.','Capitol Reef Visitor Center — film, exhibits, clean restrooms. Good 45 min reset.','Just sit at camp — you\'ve earned it. The Waterpocket Fold turns gold at 5pm.'] },
     location:'Capitol Reef NP, UT', statusText:'<strong>Rest day.</strong> Base camp at Fruita Campground. No driving needed.',
     fuel:{ show:false, text:'', price:'' },
     pois:[
@@ -1931,6 +1970,13 @@ const dayData = [
   },
   {
     day:'D6', route:'Capitol Reef → Moab', meta:'115 mi · 2.0h', camp:'hotel', miles:115, phase:'apex', tags:['hotel'], desc:'Short drive into canyon country. Dead Horse Point on the way in. Hotel night — shower deserved.',
+    food:[
+      { name:'Moab Brewery', type:'Craft beer + food · Moab institution', detail:'Dead Horse Ale is named after the overlook you just visited. Order it.', tags:[{t:'open now',cls:'live'},{t:'$$',cls:''},{t:'dinner',cls:'cat'}] },
+      { name:'Eklectica Café · breakfast', type:'Café · best morning stop in Moab', detail:'Colorful, eclectic, excellent espresso. Breakfast burritos are outstanding.', tags:[{t:'7am–2pm',cls:'warn'},{t:'$',cls:''},{t:'breakfast',cls:'cat'}] },
+      { name:'Quesadilla Mobilla · food truck', type:'Mexican street food · Center St', detail:'Famous Moab food truck. Massive quesadillas, cash only, line moves fast.', tags:[{t:'11am–9pm',cls:'live'},{t:'$',cls:''},{t:'local favorite',cls:'cat'}] },
+    ],
+    exploreData:{ title:'Explore mode · Moab arrival', items:['Dead Horse Point SP — 9 mi detour off Hwy 313. The Colorado River horseshoe view. $20, worth every cent.','Corona Arch trail — 3 mi RT, easy, enormous arch. Best intro to Moab hiking.','Arches NP evening drive — timed entry required but late afternoon light on the fins is otherworldly.'] },
+    restData:{ title:'Rest stop · Moab', items:['Eddie McStiff\'s — cold beer, AC, pool table. Good decompression spot on arrival.','Moab Spa at the Hoodoo Hotel — day spa passes available. You drove here.','Moab Public Library — free wifi, calm environment, clean restrooms in the center of town.'] },
     location:'Moab, UT', statusText:'<strong>Apex day.</strong> You\'ve arrived. Settle in — Moab delivers.',
     fuel:{ show:false, text:'', price:'' },
     pois:[
@@ -1946,6 +1992,13 @@ const dayData = [
   },
   {
     day:'D7', route:'Moab · Expedition End', meta:'Final day', camp:'hotel', miles:0, phase:'apex', tags:['hotel','event'], desc:'Arches NP sunrise. Delicate Arch at 6am. Best breakfast in Moab at Love Muffin. You made it.',
+    food:[
+      { name:'Love Muffin Café', type:'Breakfast · Moab\'s best', detail:'Huevos rancheros, homemade granola, strong coffee. Get here by 8am or wait in line.', tags:[{t:'7am–2pm',cls:'warn'},{t:'$',cls:''},{t:'must try',cls:'cat'}] },
+      { name:'Moab Diner', type:'Classic American diner', detail:'Pies are exceptional. Great for a slow final morning before heading home.', tags:[{t:'open now',cls:'live'},{t:'$',cls:''},{t:'lunch',cls:'cat'}] },
+      { name:'Peace Tree Juice Café', type:'Smoothies + light food · Center St', detail:'Açaí bowls and fresh juices. Good post-hike recovery stop.', tags:[{t:'open now',cls:'live'},{t:'$',cls:''},{t:'light',cls:'cat'}] },
+    ],
+    exploreData:{ title:'Explore mode · Moab final day', items:['Delicate Arch sunrise — leave camp at 5:30am, hike 3 mi, arrive before the crowds. Life-changing.','Canyonlands NP · Island in the Sky — 32 mi north. Grand Canyon-scale mesa views. Different world.','Morning whitewater raft on the Colorado — half-day trips book up, reserve the night before.'] },
+    restData:{ title:'Rest stop · Moab final day', items:['Sit at the hotel pool — you\'ve earned a slow morning before the drive home.','Moab Information Center — rangers can tell you exactly what road conditions look like homebound.','Eddie McStiff\'s one more time — say goodbye to Moab properly.'] },
     location:'Moab, UT', statusText:'<strong>Final day.</strong> Expedition complete. Make it count.',
     fuel:{ show:false, text:'', price:'' },
     pois:[
@@ -2075,6 +2128,36 @@ function showDayDive(i) {
     </div>
   ` : '';
 
+  // Build food cards HTML
+  const foodHTML = d.food.map(f => `
+    <div class="poi-card" onclick="showToast('${f.name} noted')">
+      <div class="poi-card-top">
+        <div class="poi-card-name">${f.name}</div>
+      </div>
+      <div class="poi-card-type">${f.type}</div>
+      <div style="font-size:11px;color:var(--text3);margin:4px 0 6px;font-family:var(--mono);line-height:1.45">${f.detail}</div>
+      <div class="poi-card-tags">
+        ${f.tags.map(t=>`<span class="pct ${t.cls}">${t.t}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  // Build explore items
+  const exploreHTML = d.exploreData ? d.exploreData.items.map(item => `
+    <div style="display:flex;gap:10px;padding:10px 0;border-bottom:0.5px solid var(--border)">
+      <div style="width:6px;height:6px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:5px"></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--text2);line-height:1.55">${item}</div>
+    </div>
+  `).join('') : '';
+
+  // Build rest items
+  const restHTML = d.restData ? d.restData.items.map(item => `
+    <div style="display:flex;gap:10px;padding:10px 0;border-bottom:0.5px solid var(--border)">
+      <div style="width:6px;height:6px;border-radius:50%;background:#3b82f6;flex-shrink:0;margin-top:5px"></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--text2);line-height:1.55">${item}</div>
+    </div>
+  `).join('') : '';
+
   // Render the full screen body
   document.getElementById('dive-body').innerHTML = `
     <div class="intown-status">
@@ -2084,35 +2167,64 @@ function showDayDive(i) {
 
     ${fuelHTML}
 
-    <div style="padding:10px 16px 6px">
+    <div style="padding:10px 16px 8px">
       <div style="font-size:9px;font-family:var(--mono);color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">What's your vibe?</div>
       <div class="vibe-row" style="padding:0;border-bottom:none;margin-bottom:0">
-        <div class="vibe-pill sel" onclick="setVibe(this)">Quick stop</div>
-        <div class="vibe-pill" onclick="setVibe(this)">Want to explore</div>
-        <div class="vibe-pill" onclick="setVibe(this)">Need a break</div>
-        <div class="vibe-pill" onclick="setVibe(this)">Skip day</div>
+        <div class="vibe-pill sel" onclick="setVibe(this,'default')">Quick stop</div>
+        <div class="vibe-pill" onclick="setVibe(this,'explore')">Want to explore</div>
+        <div class="vibe-pill" onclick="setVibe(this,'food')">Food</div>
+        <div class="vibe-pill" onclick="setVibe(this,'rest')">Need a break</div>
+        <div class="vibe-pill" onclick="setVibe(this,'skip')">Skip day</div>
       </div>
     </div>
 
     <div class="section-divider"></div>
 
-    ${poisHTML}
+    <!-- DEFAULT: POI view -->
+    <div id="vibe-default">
+      ${poisHTML}
+      <button class="none-btn" onclick="expandDayOptions(this)">
+        None of these work →
+      </button>
+      <div class="expanded-options-block" style="display:none">
+        <div style="padding:0 16px 6px">
+          <div style="font-size:9px;font-family:var(--mono);color:var(--green);text-transform:uppercase;letter-spacing:.1em">More options found</div>
+        </div>
+        <div class="poi-section" style="padding-top:6px">
+          ${expandedHTML}
+        </div>
+        <div class="skip-card" onclick="showToast('${d.skipText} — ${d.skipSub}')">
+          <div class="skip-card-name">${d.skipText} →</div>
+          <div class="skip-card-sub">${d.skipSub}</div>
+        </div>
+      </div>
+    </div>
 
-    <button class="none-btn" onclick="expandDayOptions(this)">
-      None of these work →
-    </button>
+    <!-- EXPLORE view -->
+    <div id="vibe-explore" style="display:none">
+      <div style="padding:0 16px 8px">
+        <div style="font-size:9px;font-family:var(--mono);color:var(--orange);text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px">Explore mode</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text)">${d.exploreData ? d.exploreData.title : ''}</div>
+      </div>
+      <div style="padding:0 16px 16px">${exploreHTML}</div>
+    </div>
 
-    <div class="expanded-options-block" style="display:none">
-      <div style="padding:0 16px 6px">
-        <div style="font-size:9px;font-family:var(--mono);color:var(--green);text-transform:uppercase;letter-spacing:.1em">More options found</div>
+    <!-- FOOD view -->
+    <div id="vibe-food" style="display:none">
+      <div style="padding:0 16px 8px">
+        <div style="font-size:9px;font-family:var(--mono);color:#f59e0b;text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px">Food intel</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text)">Best eats · ${d.location}</div>
       </div>
-      <div class="poi-section" style="padding-top:6px">
-        ${expandedHTML}
+      <div style="padding:0 16px 16px">${foodHTML}</div>
+    </div>
+
+    <!-- REST view -->
+    <div id="vibe-rest" style="display:none">
+      <div style="padding:0 16px 8px">
+        <div style="font-size:9px;font-family:var(--mono);color:#3b82f6;text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px">Rest &amp; recharge</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text)">${d.restData ? d.restData.title : ''}</div>
       </div>
-      <div class="skip-card" onclick="showToast('${d.skipText} — ${d.skipSub}')">
-        <div class="skip-card-name">${d.skipText} →</div>
-        <div class="skip-card-sub">${d.skipSub}</div>
-      </div>
+      <div style="padding:0 16px 16px">${restHTML}</div>
     </div>
   `;
 
@@ -2319,11 +2431,32 @@ function startGenerate() {
 }
 
 // ─── VIBE ───
-function setVibe(el) {
+function setVibe(el, mode) {
   document.querySelectorAll('.vibe-pill').forEach(p => p.classList.remove('sel'));
   el.classList.add('sel');
-  if (el.textContent === 'Skip town') {
-    showToast('Skipping Barstow · heading to Baker');
+  const panels = ['vibe-default','vibe-explore','vibe-food','vibe-rest'];
+  panels.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  const map = { default:'vibe-default', explore:'vibe-explore', food:'vibe-food', rest:'vibe-rest' };
+  const target = document.getElementById(map[mode] || 'vibe-default');
+  if (target) target.style.display = 'block';
+  if (mode === 'skip') showToast('Skip noted — time buffer recalculated');
+}
+
+// ─── FOOD TAB ───
+function switchDiveTab(tab, btn) {
+  document.querySelectorAll('.slide-panel .nav-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  if (tab === 'food') {
+    ['vibe-default','vibe-explore','vibe-rest'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+    const food = document.getElementById('vibe-food');
+    if (food) food.style.display = 'block';
+    document.querySelectorAll('.vibe-pill').forEach(p => p.classList.remove('sel'));
   }
 }
 
