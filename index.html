@@ -1915,17 +1915,13 @@ input[type=range]::-webkit-slider-thumb {
 
     <!-- DRIVE IMPORT -->
     <div class="drive-zone">
-      <button class="drive-btn" id="drive-btn" onclick="toggleDriveInput()">
+      <label class="drive-btn" id="drive-btn" style="cursor:pointer">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2L2 19h20L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-          <path d="M2 19h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <span id="drive-btn-text">Import Google Drive doc</span>
-      </button>
-      <div class="drive-input-row" id="drive-input-row">
-        <input class="drive-url-field" id="drive-url" type="url" placeholder="https://docs.google.com/document/d/...">
-        <button class="drive-fetch-btn" onclick="parseDriveDoc()">Create Trip →</button>
-      </div>
+        <span id="drive-btn-text">Upload reference doc (.docx or .txt)</span>
+        <input type="file" id="doc-file-input" accept=".docx,.txt,.doc" style="display:none" onchange="handleDocUpload(event)">
+      </label>
       <div class="drive-parsing" id="drive-parsing">
         <div class="parse-row">
           <div class="parse-icon done" id="pi-access">✓</div>
@@ -2833,50 +2829,217 @@ function toggleDriveInput() {
   }
 }
 
-async function parseDriveDoc() {
-  const url = document.getElementById('drive-url').value.trim();
-  if (!url) {
-    showToast('Please paste a Google Drive URL first', 'Error');
-    return;
-  }
+async function handleDocUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
 
-  // Hide input, show parsing
-  document.getElementById('drive-input-row').classList.remove('visible');
+  // Update button state
+  document.getElementById('drive-btn-text').textContent = `📄 ${file.name}`;
+  document.querySelector('.drive-btn').style.cssText = 'border-color:var(--orange);background:var(--orange-dim);color:var(--orange);cursor:default';
+
+  // Show parsing animation
   const parsing = document.getElementById('drive-parsing');
   parsing.classList.add('visible');
 
-  document.getElementById('drive-btn-text').textContent = '✓ Google Drive doc';
-  document.querySelector('.drive-btn').style.cssText = 'border-color:var(--green);background:var(--green-dim);color:var(--green)';
+  const updateStep = (icon, val, result, done=true) => {
+    const el = document.getElementById(icon);
+    if (el) { el.className = done ? 'parse-icon done' : 'parse-icon spin'; el.textContent = done ? '✓' : '↻'; }
+    const vEl = document.getElementById(val);
+    if (vEl) vEl.textContent = result;
+  };
 
-  // Animate parse steps
-  const steps = [
-    { icon:'pi-params', val:'pv-params', delay:400, result:'found' },
-    { icon:'pi-events', val:'pv-events', delay:900, result:'3 events' },
-    { icon:'pi-food', val:'pv-food', delay:1400, result:'loaded' },
-    { icon:'pi-vehicle', val:'pv-vehicle', delay:1800, result:'GX470' },
-  ];
+  // Step 1: read file
+  updateStep('pi-access', 'pv-access', 'reading…', false);
+  let docText = '';
+  try {
+    if (file.name.endsWith('.docx')) {
+      // Use mammoth via CDN to extract text from docx
+      const arrayBuffer = await file.arrayBuffer();
+      const mammoth = await import('https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js');
+      const result = await mammoth.extractRawText({ arrayBuffer });
+      docText = result.value;
+    } else {
+      docText = await file.text();
+    }
+    updateStep('pi-access', 'pv-access', 'ok');
+  } catch(e) {
+    updateStep('pi-access', 'pv-access', 'read error');
+    showToast('Could not read file', 'Error');
+    return;
+  }
 
-  steps.forEach(({icon,val,delay,result}) => {
+  // Step 2–4: call Anthropic API to extract trip data
+  updateStep('pi-params', 'pv-params', 'extracting…', false);
+
+  const prompt = `You are parsing an overlanding trip reference document. Extract the trip data and return ONLY a valid JSON object with no markdown, no backticks, no explanation.
+
+Return this exact structure:
+{
+  "tripName": "Start → End (e.g. Las Vegas → Arches)",
+  "eyebrow": "Claud v1.1 · [season/year] · [vehicle]",
+  "sub": "[Mon DD–DD, YYYY] · [N] days · [Start City] → [End City]",
+  "vehicle": "make model year",
+  "startLocation": "city, state",
+  "endLocation": "city, state",
+  "departDate": "Month DD, YYYY",
+  "duration": "7",
+  "fuelRange": "400",
+  "groupSize": "1-2",
+  "buildMods": "lift, armor, winch, fridge, dual battery",
+  "events": [
+    {"name": "event name", "date": "Mon DD, YYYY", "loc": "location"}
+  ],
+  "days": [
+    {
+      "day": 1,
+      "date": "Month DD, YYYY",
+      "location": "City, State",
+      "start": "previous location",
+      "end": "this location",
+      "miles": "~XXX mi",
+      "drive": "X hrs",
+      "phase": "depart|outbound|apex|return",
+      "tags": ["camp|hotel|fuel|event"],
+      "flag": "short event label or null",
+      "overview": "2-3 sentence day summary"
+    }
+  ]
+}
+
+Document:
+${docText.slice(0, 8000)}`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 3000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await response.json();
+    const raw = data.content?.[0]?.text || '';
+    const cleaned = raw.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(cleaned);
+
+    updateStep('pi-params', 'pv-params', 'found');
+    updateStep('pi-events', 'pv-events', `${(parsed.events||[]).length} events`);
+    updateStep('pi-food', 'pv-food', 'loaded');
+    updateStep('pi-vehicle', 'pv-vehicle', parsed.vehicle || 'found');
+
     setTimeout(() => {
-      const el = document.getElementById(icon);
-      el.className = 'parse-icon spin';
-      el.textContent = '↻';
-    }, delay);
-    setTimeout(() => {
-      const el = document.getElementById(icon);
-      el.className = 'parse-icon done';
-      el.textContent = '✓';
-      document.getElementById(val).textContent = result;
-    }, delay + 500);
+      populateFromParsed(parsed);
+      state.driveImported = true;
+      showToast('Doc parsed · building your trip…', 'Imported');
+      setTimeout(() => startGenerate(), 800);
+    }, 600);
+
+  } catch(e) {
+    updateStep('pi-params', 'pv-params', 'parse error');
+    showToast('Could not extract trip data — check doc format', 'Error');
+    console.error('Parse error:', e);
+  }
+}
+
+function populateFromParsed(p) {
+  // Fill form fields
+  const setField = (id, val) => { const el = document.getElementById(id); if (el && val) { el.value = val; el.classList.add('prefilled'); } };
+  setField('f-start', p.startLocation);
+  setField('f-end', p.endLocation);
+  setField('f-depart', p.departDate);
+  setField('f-duration', p.duration);
+  setField('f-vehicle', p.vehicle);
+  setField('f-fuel', p.fuelRange);
+  setField('f-group', p.groupSize);
+  setField('f-mods', p.buildMods);
+
+  // Events
+  state.events = (p.events || []).map(e => ({ name: e.name, date: e.date, loc: e.loc }));
+  renderEvents();
+
+  // Phase color map
+  const phaseColors = { depart:'#22c55e', outbound:'#d97830', apex:'#3b82f6', return:'#ff9166' };
+  const tagStyle = t => {
+    if (t === 'camp')  return 'background:rgba(34,197,94,.12);color:#22c55e';
+    if (t === 'hotel') return 'background:rgba(59,130,246,.12);color:#3b82f6';
+    if (t === 'fuel')  return 'background:rgba(217,120,48,.1);color:#d97830';
+    if (t === 'event') return 'background:rgba(168,85,247,.12);color:#a855f7';
+    return 'background:rgba(255,255,255,.08);color:#888';
+  };
+  const flagStyle = tag => {
+    if (tag && tag.toLowerCase().includes('camp'))  return 'background:rgba(34,197,94,.15);color:#22c55e';
+    if (tag && tag.toLowerCase().includes('event')) return 'background:rgba(168,85,247,.18);color:#a855f7';
+    return 'background:rgba(217,120,48,.18);color:#d97830';
+  };
+
+  // Build homeData
+  homeData.length = 0;
+  (p.days || []).forEach(d => {
+    const pc = phaseColors[d.phase] || '#d97830';
+    const pills = (d.tags || []).map(t => ({ t, s: tagStyle(t) }));
+    homeData.push({
+      day: d.day,
+      date: d.date,
+      location: d.location,
+      start: d.start,
+      end: d.end,
+      miles: d.miles,
+      drive: d.drive,
+      phaseColor: pc,
+      flag: d.flag || null,
+      flagStyle: d.flag ? flagStyle(d.flag) : '',
+      pills,
+      overview: d.overview,
+      brief: null
+    });
   });
 
-  // After all steps, pre-fill form then kick off generation
-  setTimeout(() => {
-    prefillFromDrive();
-    state.driveImported = true;
-    showToast('Doc imported · building your trip…', 'Imported');
-    setTimeout(() => startGenerate(), 800);
-  }, 2800);
+  // Build dayData
+  dayData.length = 0;
+  (p.days || []).forEach(d => {
+    dayData.push({
+      day: `D${d.day}`,
+      route: d.location,
+      meta: `${d.miles} · ${d.drive}`,
+      miles: parseInt((d.miles || '0').replace(/[^0-9]/g, '')) || 0,
+      phase: d.phase || 'outbound',
+      tags: d.tags || [],
+      desc: d.overview,
+      location: d.location,
+      statusText: `<strong>Day ${d.day}.</strong> ${d.overview}`,
+      fuel: { show: false, text: '', price: '' },
+      pois: [], expanded: [],
+      skipText: `Skip ${d.location}`, skipSub: 'Continue to next stop.',
+      food: [], exploreData: null, restData: null
+    });
+  });
+
+  // Update screen headers
+  const safeSet = (id, val) => { const el = document.getElementById(id); if (el && val) el.textContent = val; };
+  safeSet('home-eyebrow', p.eyebrow || 'Claud v1.1 · Expedition');
+  safeSet('home-title', p.tripName || 'Your Expedition');
+  safeSet('home-sub', p.sub || '');
+  safeSet('daily-title', p.tripName || 'Route Details');
+  safeSet('daily-sub', p.sub || '');
+  safeSet('daily-table-title', p.tripName || '');
+  safeSet('daily-stat-days', p.duration || String((p.days||[]).length));
+  safeSet('daily-stat-miles', '—');
+  safeSet('daily-stat-phases', '3');
+  safeSet('daily-stat-camps', String((p.days||[]).filter(d => (d.tags||[]).includes('camp')).length));
+
+  const phases = document.getElementById('home-phases');
+  if (phases) phases.style.display = '';
+  const dailyPhases = document.getElementById('daily-phase-pills');
+  if (dailyPhases) dailyPhases.style.display = '';
+
+  renderHomeCards();
+  renderDayTable();
+}
+
+async function parseDriveDoc() {
+  showToast('Use the Upload button to select a .docx or .txt file', 'Info');
 }
 
 function prefillFromDrive() {
