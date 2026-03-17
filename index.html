@@ -2124,19 +2124,18 @@ input[type=range]::-webkit-slider-thumb {
   <div class="app-header">
     <div class="header-top">
       <div>
-        <div class="header-eyebrow">Claud v1.1 · Route Details</div>
-        <div class="header-title">Day by Day</div>
+        <div class="header-eyebrow" id="daily-eyebrow">Claud v1.1 · Route Details</div>
+        <div class="header-title" id="daily-title">Route Details</div>
       </div>
-      <div class="header-badge">GX478</div>
     </div>
-    <div class="header-sub" id="daily-sub">Los Angeles → Moab · 7 days</div>
+    <div class="header-sub" id="daily-sub">Upload a reference doc to load your route</div>
   </div>
 
   <div class="stats-row">
-    <div class="stat-cell"><div class="stat-num orange">7</div><div class="stat-label">Days</div></div>
-    <div class="stat-cell"><div class="stat-num blue">847</div><div class="stat-label">Miles</div></div>
-    <div class="stat-cell"><div class="stat-num green">3</div><div class="stat-label">Phases</div></div>
-    <div class="stat-cell"><div class="stat-num orange">5</div><div class="stat-label">Camps</div></div>
+    <div class="stat-cell"><div class="stat-num orange" id="daily-stat-days">—</div><div class="stat-label">Days</div></div>
+    <div class="stat-cell"><div class="stat-num blue" id="daily-stat-miles">—</div><div class="stat-label">Miles</div></div>
+    <div class="stat-cell"><div class="stat-num green" id="daily-stat-phases">—</div><div class="stat-label">Phases</div></div>
+    <div class="stat-cell"><div class="stat-num orange" id="daily-stat-camps">—</div><div class="stat-label">Camps</div></div>
   </div>
 
   <div class="nav-pills">
@@ -2150,8 +2149,8 @@ input[type=range]::-webkit-slider-thumb {
 
   <div class="screen-body">
     <div class="day-table-header">
-      <div class="day-table-title">LA → Moab</div>
-      <div class="phase-pills">
+      <div class="day-table-title" id="daily-table-title"></div>
+      <div class="phase-pills" id="daily-phase-pills" style="display:none">
         <span class="phase-pill depart">Depart D1–2</span>
         <span class="phase-pill outbound">Outbound D3–5</span>
         <span class="phase-pill apex">Apex D6–7</span>
@@ -2937,6 +2936,17 @@ function prefillFromDrive() {
   safeSet('home-sub', 'Mar 21–27 · 7 days · Los Angeles, CA → Moab, UT');
   const phases = document.getElementById('home-phases');
   if (phases) phases.style.display = '';
+
+  // Update daily screen header from doc data
+  safeSet('daily-title', 'Las Vegas → Arches');
+  safeSet('daily-sub', 'Mar 21–27 · 7 days · Los Angeles, CA → Moab, UT');
+  safeSet('daily-table-title', 'Las Vegas → Arches');
+  safeSet('daily-stat-days', '7');
+  safeSet('daily-stat-miles', '847');
+  safeSet('daily-stat-phases', '3');
+  safeSet('daily-stat-camps', '5');
+  const dailyPhases = document.getElementById('daily-phase-pills');
+  if (dailyPhases) dailyPhases.style.display = '';
 
   // Refresh screens if currently visible
   renderHomeCards();
