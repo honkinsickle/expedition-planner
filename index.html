@@ -1916,13 +1916,31 @@ input[type=range]::-webkit-slider-thumb {
 
     <!-- DRIVE IMPORT -->
     <div class="drive-zone">
-      <label class="drive-btn" id="drive-btn" style="cursor:pointer">
+      <!-- Option A: Google Docs → download helper -->
+      <div style="margin-bottom:8px">
+        <div style="font-family:var(--mono);font-size:8px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Google Docs — paste link to download</div>
+        <div style="display:flex;gap:6px">
+          <input class="drive-url-field" id="gdoc-url" type="url" placeholder="https://docs.google.com/document/d/..." style="flex:1" oninput="updateDownloadLink()">
+          <a id="gdoc-download-link" href="#" target="_blank" class="drive-fetch-btn" style="white-space:nowrap;padding:10px 12px;text-decoration:none;display:flex;align-items:center;opacity:.4;pointer-events:none">Download ↓</a>
+        </div>
+        <div style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:5px;line-height:1.6">Paste your doc URL → tap Download ↓ → save as .txt → upload below</div>
+      </div>
+
+      <div class="or-divider" style="margin:10px 0">
+        <div class="or-line"></div>
+        <div class="or-text">or upload file</div>
+        <div class="or-line"></div>
+      </div>
+
+      <!-- Option B: File upload -->
+      <label class="drive-btn" id="drive-btn" style="cursor:pointer;margin-bottom:0">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
           <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <span id="drive-btn-text">Upload reference doc (.docx or .txt)</span>
+        <span id="drive-btn-text">Upload .docx or .txt</span>
         <input type="file" id="doc-file-input" accept=".docx,.txt,.doc" style="display:none" onchange="handleDocUpload(event)">
       </label>
+
       <div class="drive-parsing" id="drive-parsing">
         <div class="parse-row">
           <div class="parse-icon done" id="pi-access">✓</div>
@@ -2830,6 +2848,21 @@ function toggleDriveInput() {
   }
 }
 
+function updateDownloadLink() {
+  const url = document.getElementById('gdoc-url').value.trim();
+  const link = document.getElementById('gdoc-download-link');
+  const idMatch = url.match(/\/d\/([a-zA-Z0-9_-]{20,})/);
+  if (idMatch) {
+    const fileId = idMatch[1];
+    link.href = `https://docs.google.com/document/d/${fileId}/export?format=txt`;
+    link.style.opacity = '1';
+    link.style.pointerEvents = 'auto';
+  } else {
+    link.href = '#';
+    link.style.opacity = '.4';
+    link.style.pointerEvents = 'none';
+  }
+}
 async function handleDocUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
@@ -2868,7 +2901,17 @@ async function handleDocUpload(event) {
     return;
   }
 
-  // Step 2–4: call Anthropic API to extract trip data
+  await parseDocText(docText);
+}
+
+async function parseDocText(docText) {
+  const updateStep = (icon, val, result, done=true) => {
+    const el = document.getElementById(icon);
+    if (el) { el.className = done ? 'parse-icon done' : 'parse-icon spin'; el.textContent = done ? '✓' : '↻'; }
+    const vEl = document.getElementById(val);
+    if (vEl) vEl.textContent = result;
+  };
+  // Call Anthropic API to extract trip data
   updateStep('pi-params', 'pv-params', 'extracting…', false);
 
   const prompt = `You are parsing an overlanding trip reference document. Extract the trip data and return ONLY a valid JSON object with no markdown, no backticks, no explanation.
