@@ -1883,11 +1883,11 @@ input[type=range]::-webkit-slider-thumb {
 ═══════════════════════════════════════ -->
 <div class="screen active" id="screen-home">
   <div class="home-header">
-    <div class="home-eyebrow">Claud v1.1 · Spring '26 · GX470</div>
-    <div class="home-title">Las Vegas → Arches</div>
-    <div class="home-sub">Mar 21–27 · 7 days · Los Angeles, CA → Moab, UT</div>
+    <div class="home-eyebrow" id="home-eyebrow">Claud v1.1 · Expedition Planner</div>
+    <div class="home-title" id="home-title">No trip loaded</div>
+    <div class="home-sub" id="home-sub">Upload a reference doc on New Trip to get started</div>
   </div>
-  <div class="home-phases">
+  <div class="home-phases" id="home-phases" style="display:none">
     <div class="home-phase" style="background:rgba(34,197,94,.12);color:#22c55e">Depart D1–2</div>
     <div class="home-phase" style="background:rgba(217,120,48,.12);color:#d97830">Outbound D3–5</div>
     <div class="home-phase" style="background:rgba(59,130,246,.12);color:#3b82f6">Apex D6–7</div>
@@ -2930,11 +2930,13 @@ function prefillFromDrive() {
   ];
   routeDays.forEach(d => dayData.push(d));
 
-  // Update home screen header
-  const homeTitle = document.querySelector('#screen-home .home-title');
-  const homeSub = document.querySelector('#screen-home .home-sub');
-  if (homeTitle) homeTitle.textContent = 'Las Vegas → Arches';
-  if (homeSub) homeSub.textContent = 'Mar 21–27 · 7 days · GX470';
+  // Update home screen header from doc data
+  const safeSet = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  safeSet('home-eyebrow', 'Claud v1.1 · Spring \'26 · GX470');
+  safeSet('home-title', 'Las Vegas → Arches');
+  safeSet('home-sub', 'Mar 21–27 · 7 days · Los Angeles, CA → Moab, UT');
+  const phases = document.getElementById('home-phases');
+  if (phases) phases.style.display = '';
 
   // Refresh screens if currently visible
   renderHomeCards();
