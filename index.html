@@ -2431,242 +2431,13 @@ const detourLabels = ['no detours','5 min','20 min','45 min','full day ok'];
 const detourMins = [0,5,20,45,480];
 
 // ─── DAY DATA ───
-const dayData = [
-  {
-    day:'D1', route:'Los Angeles → Barstow', meta:'148 mi · 2.5h', camp:'camp', miles:148, phase:'depart', tags:['camp','fuel'], desc:'Mojave Desert entry. Route 66 corridor. Fuel before the 67 mi gap into Baker.',
-    food:[
-      { name:'Idle Spurs Steakhouse', type:'American · Route 66 classic', detail:'Locals-only steakhouse on Route 66. Go for the tri-tip.', tags:[{t:'open now',cls:'live'},{t:'$$',cls:''},{t:'dinner',cls:'cat'}] },
-      { name:'Peggy Sue\'s 50s Diner', type:'Diner · Yermo Rd', detail:'Retro 50s roadside diner. Milkshakes are mandatory.', tags:[{t:'open now',cls:'live'},{t:'$',cls:''},{t:'lunch',cls:'cat'}] },
-      { name:'Barstow Station Food Court', type:'Fast food · truck stop hybrid', detail:'Quick fuel-up stop. Not glamorous but functional on a drive day.', tags:[{t:'24hr',cls:'live'},{t:'$',cls:''}] },
-    ],
-    exploreData:{ title:'Explore mode · Barstow', items:['Detour to Amboy Crater — 22 mi off I-40, 60 min. Active volcanic cinder cone, completely free.','Calico Ghost Town — 7 mi north. Best preserved silver mining town in the Mojave. $8 entry.','Rainbow Basin Natural Area — 8 mi north. Technicolor badlands. Dispersed camping allowed.'] },
-    restData:{ title:'Rest stop · Barstow', items:['Black Bear Diner on E Main — big booths, strong coffee, stay as long as you need.','Barstow Community Pool — day passes available if you need to cool down ($5).','Starbucks on Lenwood Rd — wifi, AC, reliable. Good spot to regroup.'] },
-    location:'Barstow, CA', statusText:'<strong>On track.</strong> Next stop: Barstow. 148 mi from LA.',
-    fuel:{ show:true, text:'<strong>Fuel up here.</strong> 67 mi gap ahead. Next station in Baker.', price:'$4.18' },
-    pois:[
-      { cat:'History nearby', dotColor:'#D85A30', name:'Route 66 Mother Road Museum', dist:'0.3 mi · walk', type:'Historic museum · Route 66 artifacts', tags:[{t:'open now',cls:'live'},{t:'$5 entry',cls:''},{t:'45 min',cls:''},{t:'history',cls:'cat'}] },
-      { cat:'Roadside oddities', dotColor:'#ff6b2b', name:'Amboy Crater', dist:'22 mi · 25 min', type:'Volcanic cinder cone · BLM land', tags:[{t:'open always',cls:'live'},{t:'free',cls:''},{t:'60 min',cls:''},{t:'roadside',cls:'cat'}] },
-      { cat:'Ghost towns', dotColor:'#a855f7', name:'Calico Ghost Town', dist:'7.2 mi · 9 min', type:'1800s silver mining ghost town', tags:[{t:'open now',cls:'live'},{t:'$8 entry',cls:''},{t:'90 min',cls:''},{t:'ghost town',cls:'cat'}] },
-    ],
-    expanded:[
-      { name:'Mojave Desert Museum', dist:'1.1 mi · 3 min', type:'Desert ecology · interactive exhibits', tags:[{t:'open now',cls:'live'},{t:'free',cls:''},{t:'30 min',cls:''}] },
-      { name:'Idle Spurs Steakhouse', dist:'0.6 mi · 2 min', type:'Local steakhouse · Route 66 classic', tags:[{t:'open now',cls:'live'},{t:'$$',cls:''},{t:'45 min',cls:''}] },
-    ],
-    skipText:'Skip Barstow entirely', skipSub:'Drive straight to Baker. Gain +28 min buffer tonight.',
-  },
-  {
-    day:'D2', route:'Barstow → Las Vegas', meta:'157 mi · 2.2h', camp:'hotel', miles:157, phase:'depart', tags:['hotel','fuel'], desc:'I-15 push through the Mojave. World\'s tallest thermometer in Baker. Hotel night in Vegas.',
-    food:[
-      { name:'Mad Greek Café · Baker', type:'Greek diner · I-15 landmark', detail:'A genuine desert institution. Gyros, baklava, and legendary milkshakes. Don\'t skip it.', tags:[{t:'open now',cls:'live'},{t:'$',cls:''},{t:'lunch',cls:'cat'}] },
-      { name:'In-N-Out · Las Vegas Blvd', type:'Burger · Nevada tradition', detail:'First In-N-Out after the California desert stretch. Animal style.', tags:[{t:'open now',cls:'live'},{t:'$',cls:''},{t:'fast',cls:'cat'}] },
-      { name:'Lotus of Siam · Las Vegas', type:'Thai · James Beard nominated', detail:'Best Thai food in America, according to most food writers. Book ahead.', tags:[{t:'dinner only',cls:'warn'},{t:'$$$',cls:''},{t:'must try',cls:'cat'}] },
-    ],
-    exploreData:{ title:'Explore mode · Baker / Vegas', items:['Mojave National Preserve — 14 mi east of Baker. Kelso Dunes sing. Cima Dome is covered in Joshua trees.','Valley of Fire State Park — 50 mi NE of Vegas. Best red rock in Nevada. Opens at sunrise.','Neon Museum · Las Vegas — graveyard of Vegas signs. Genuinely excellent. Book in advance.'] },
-    restData:{ title:'Rest stop · Baker / Vegas', items:['Bun Boy restaurant in Baker — classic roadside diner, huge booths, AC blasting.','Any Vegas Strip casino lobby — free AC, free people watching, clean restrooms.','Fashion Show Mall food court — full meal, sit down, recharge everything.'] },
-    location:'Baker, CA',  statusText:'<strong>On track.</strong> Las Vegas by 4pm. 157 mi today.',
-    fuel:{ show:true, text:'<strong>Last cheap fuel.</strong> Baker prices beat Vegas by $0.60/gal.', price:'$4.22' },
-    pois:[
-      { cat:'Roadside oddities', dotColor:'#ff6b2b', name:'World\'s Tallest Thermometer', dist:'0.1 mi · walk', type:'134ft roadside landmark · free photo stop', tags:[{t:'always open',cls:'live'},{t:'free',cls:''},{t:'10 min',cls:'cat'}] },
-      { cat:'History nearby', dotColor:'#D85A30', name:'Mojave National Preserve', dist:'14 mi · 18 min', type:'WWII Cima Dome · lava tubes · dunes', tags:[{t:'open always',cls:'live'},{t:'free · NPS',cls:''},{t:'2–4 hrs',cls:'cat'}] },
-    ],
-    expanded:[
-      { name:'Mad Greek Café', dist:'0.2 mi · walk', type:'Legendary diner · gyros + shakes', tags:[{t:'open now',cls:'live'},{t:'$',cls:''},{t:'30 min',cls:''}] },
-      { name:'Kelso Dunes', dist:'24 mi · 30 min', type:'600ft singing sand dunes · BLM', tags:[{t:'open always',cls:'live'},{t:'free',cls:''},{t:'2 hrs',cls:''}] },
-    ],
-    skipText:'Skip Baker · push to Vegas', skipSub:'Save 45 min. Hit Las Vegas Strip by 2:30pm.',
-  },
-  {
-    day:'D3', route:'Las Vegas → Kanab, UT', meta:'163 mi · 2.8h', camp:'camp', miles:163, phase:'outbound', tags:['camp'], desc:'Valley of Fire on the way out. Crossing into Utah. Dispersed camp near Kanab Creek.',
-    food:[
-      { name:'Escobar\'s Mexican · Mesquite, NV', type:'Mexican · border town classic', detail:'Last cheap food before Utah. Huge portions, cash preferred.', tags:[{t:'open now',cls:'live'},{t:'$',cls:''},{t:'lunch',cls:'cat'}] },
-      { name:'Kanab Creek Bakery', type:'Bakery café · Kanab main street', detail:'Best breakfast in Kanab. Fresh pastries, strong espresso, slow pace.', tags:[{t:'7am–2pm',cls:'warn'},{t:'$',cls:''},{t:'breakfast',cls:'cat'}] },
-      { name:'Willow Canyon Outdoor · Kanab', type:'Gear store + local intel', detail:'Not food, but the best place to get dispersed camp recommendations from locals.', tags:[{t:'open now',cls:'live'},{t:'free intel',cls:'cat'}] },
-    ],
-    exploreData:{ title:'Explore mode · Valley of Fire / Kanab', items:['Valley of Fire State Park — spectacular Aztec sandstone. White Domes loop is 1.1 mi, don\'t miss it.','Coral Pink Sand Dunes SP — 12 mi from Kanab. Rare pink quartz dunes, OHV accessible.','Kanab Heritage House Museum — small but excellent. Polygamy history, frontier life, Paiute culture.'] },
-    restData:{ title:'Rest stop · Kanab', items:['Kanab Creek Bakery — settle in for an hour. Good wifi, comfortable seating.','Kanab City Park on 100 East — picnic tables, shade trees, clean restrooms.','Houston\'s Trails End Restaurant — Kanab staple since 1959. Pie is exceptional.'] },
-    location:'Valley of Fire, NV', statusText:'<strong>On track.</strong> Kanab by 5pm. Stunning corridor today.',
-    fuel:{ show:false, text:'', price:'' },
-    pois:[
-      { cat:'Geology nearby', dotColor:'#3b82f6', name:'Valley of Fire State Park', dist:'1.2 mi · 3 min', type:'Aztec sandstone formations · petroglyphs', tags:[{t:'open now',cls:'live'},{t:'$15 entry',cls:''},{t:'2–3 hrs',cls:'cat'}] },
-      { cat:'History nearby', dotColor:'#D85A30', name:'Lost City Museum', dist:'4.8 mi · 7 min', type:'Ancient Ancestral Puebloan site · NV', tags:[{t:'open now',cls:'live'},{t:'$5 entry',cls:''},{t:'45 min',cls:'cat'}] },
-      { cat:'Dark sky', dotColor:'#6366f1', name:'Lake Mead viewpoint', dist:'8 mi · 12 min', type:'Bortle 3 · best tonight after 9pm', tags:[{t:'tonight optimal',cls:'live'},{t:'free',cls:''},{t:'Bortle 3',cls:'cat'}] },
-    ],
-    expanded:[
-      { name:'Moapa Paiute Travel Plaza', dist:'0.4 mi · on route', type:'Fuel + Subway · last services for 80mi', tags:[{t:'open now',cls:'live'},{t:'fuel',cls:'warn'},{t:'$',cls:''}] },
-    ],
-    skipText:'Skip Valley of Fire · push to Kanab', skipSub:'Arrive Kanab by 3pm. Extra time for Coral Pink Sand Dunes.',
-  },
-  {
-    day:'D4', route:'Kanab → Capitol Reef', meta:'125 mi · 2.2h', camp:'camp', miles:125, phase:'outbound', tags:['camp','fuel'], desc:'Hwy 12 — one of America\'s most scenic byways. Coral Pink Dunes detour. Fuel in Kanab — 94 mi gap ahead.',
-    food:[
-      { name:'Panguitch Bakery · Panguitch, UT', type:'Bakery · Hwy 89 stop', detail:'Midpoint on Hwy 12 corridor. Fresh pies, homemade bread. Worth a 10-min stop.', tags:[{t:'7am–5pm',cls:'warn'},{t:'$',cls:''},{t:'snack stop',cls:'cat'}] },
-      { name:'Café Diablo · Torrey, UT', type:'Southwest cuisine · James Beard noted', detail:'Best dinner on the Hwy 12 corridor. Rattlesnake cakes. Not a joke.', tags:[{t:'dinner only',cls:'warn'},{t:'$$$',cls:''},{t:'must try',cls:'cat'}] },
-      { name:'Rim Rock Restaurant · Torrey', type:'American · Capitol Reef adjacent', detail:'Simple, solid food. Right at the park entrance. Good for a post-hike meal.', tags:[{t:'open now',cls:'live'},{t:'$$',cls:''},{t:'dinner',cls:'cat'}] },
-    ],
-    exploreData:{ title:'Explore mode · Hwy 12 corridor', items:['Grand Staircase-Escalante NM — pull off at Head of the Rocks overlook. 270° panorama, no hiking required.','Anasazi State Park Museum · Boulder — 1000-year-old pueblo ruins. Excellent small museum. $5 entry.','Chimney Rock trailhead · Capitol Reef — 3.6 mi RT. Best intro hike in the park.'] },
-    restData:{ title:'Rest stop · Torrey / Capitol Reef', items:['Torrey Trading Post — porch seating, local craft beer, relaxed atmosphere.','Capitol Reef Visitor Center — AC, clean restrooms, excellent ranger intel for tomorrow.','Torrey Town Park — shade, picnic tables, surprisingly nice for a tiny town.'] },
-    location:'Kanab, UT', statusText:'<strong>On track.</strong> Capitol Reef by 2pm. 125 mi on Hwy 89.',
-    fuel:{ show:true, text:'<strong>Fill here.</strong> No fuel for 94 mi after Kanab on Hwy 12.', price:'$4.51' },
-    pois:[
-      { cat:'Native heritage', dotColor:'#a855f7', name:'Kanab Heritage Museum', dist:'0.5 mi · walk', type:'Paiute history + classic Hollywood Westerns', tags:[{t:'open now',cls:'live'},{t:'$3 entry',cls:''},{t:'45 min',cls:'cat'}] },
-      { cat:'Roadside oddities', dotColor:'#ff6b2b', name:'Coral Pink Sand Dunes', dist:'12 mi · 15 min', type:'Pink quartz sand · OHV accessible', tags:[{t:'open always',cls:'live'},{t:'$15 entry',cls:''},{t:'2 hrs',cls:'cat'}] },
-      { cat:'Photography spots', dotColor:'#22c55e', name:'The Wave trailhead', dist:'28 mi · 35 min', type:'Permit required · world-class slot canyon', tags:[{t:'permit req.',cls:'warn'},{t:'6 mi RT',cls:''},{t:'photo',cls:'cat'}] },
-    ],
-    expanded:[
-      { name:'Sego Canyon Petroglyphs', dist:'2 mi off Hwy 24', type:'3 styles · 2000+ year old rock art', tags:[{t:'open always',cls:'live'},{t:'free',cls:''},{t:'45 min',cls:''}] },
-    ],
-    skipText:'Skip Kanab stops · straight to Capitol Reef', skipSub:'Arrive by noon. Extra time for Cassidy Arch hike.',
-  },
-  {
-    day:'D5', route:'Capitol Reef · Rest Day', meta:'Rest day · full explore', camp:'camp', miles:0, phase:'outbound', tags:['camp','event'], desc:'No driving. Hike Cassidy Arch. Pick fruit in Fruita orchards. Bortle 2 dark sky tonight.',
-    food:[
-      { name:'Fruita Orchards · pick your own', type:'Free fruit in season · NPS land', detail:'Apple, pear, peach trees along Scenic Drive. In season May–Oct, pick as much as you can eat.', tags:[{t:'free · NPS',cls:'live'},{t:'seasonal',cls:'warn'},{t:'unique',cls:'cat'}] },
-      { name:'Café Diablo · Torrey (6 mi)', type:'Southwest · best in region', detail:'If you didn\'t eat here last night, tonight\'s the night. Reservation recommended.', tags:[{t:'dinner only',cls:'warn'},{t:'$$$',cls:''},{t:'must try',cls:'cat'}] },
-      { name:'Gifford Homestead · on site', type:'Homemade pies + preserves · NPS', detail:'1908 homestead sells fresh pies baked daily. Sells out by noon. Go early.', tags:[{t:'9am–noon',cls:'warn'},{t:'$',cls:''},{t:'iconic',cls:'cat'}] },
-    ],
-    exploreData:{ title:'Explore mode · Capitol Reef rest day', items:['Grand Wash trail — 4.4 mi RT through a slot canyon. Flat, accessible, spectacular walls.','Capitol Gorge petroglyphs — 2 mi RT. 1000-year-old Fremont petroglyphs + pioneer register.','Cathedral Valley loop — 60-mile dirt road. Requires high clearance. Monolith formations, completely alone.'] },
-    restData:{ title:'Rest stop · Fruita campground', items:['Shady picnic area by the orchard — hammock-worthy trees, running water nearby.','Capitol Reef Visitor Center — film, exhibits, clean restrooms. Good 45 min reset.','Just sit at camp — you\'ve earned it. The Waterpocket Fold turns gold at 5pm.'] },
-    location:'Capitol Reef NP, UT', statusText:'<strong>Rest day.</strong> Base camp at Fruita Campground. No driving needed.',
-    fuel:{ show:false, text:'', price:'' },
-    pois:[
-      { cat:'Geology nearby', dotColor:'#3b82f6', name:'Cassidy Arch Trail', dist:'On site', type:'3.4 mi RT · 670ft gain · stunning arch', tags:[{t:'open now',cls:'live'},{t:'free · NPS',cls:''},{t:'2.5 hrs',cls:'cat'}] },
-      { cat:'History nearby', dotColor:'#D85A30', name:'Fruita Historic District', dist:'0.2 mi · walk', type:'1880s Mormon pioneer orchards · still fruiting', tags:[{t:'open now',cls:'live'},{t:'free',cls:''},{t:'1 hr',cls:'cat'}] },
-      { cat:'Photography spots', dotColor:'#22c55e', name:'Sunset Point · Capitol Dome', dist:'0.5 mi · 5 min', type:'Golden hour on dome formations — unmissable', tags:[{t:'tonight optimal',cls:'live'},{t:'free',cls:''},{t:'photo',cls:'cat'}] },
-      { cat:'Dark sky', dotColor:'#6366f1', name:'Fruita Campground field', dist:'On site', type:'Bortle 2 · Milky Way overhead after 9:30pm', tags:[{t:'tonight optimal',cls:'live'},{t:'Bortle 2',cls:''},{t:'free',cls:'cat'}] },
-    ],
-    expanded:[
-      { name:'Hickman Bridge Trail', dist:'On site', type:'1.8 mi RT · natural bridge · easy', tags:[{t:'open now',cls:'live'},{t:'free',cls:''},{t:'1.5 hrs',cls:''}] },
-    ],
-    skipText:'Pack up early · head to Moab', skipSub:'Gain a full day in Moab. Arrives by 1pm.',
-  },
-  {
-    day:'D6', route:'Capitol Reef → Moab', meta:'115 mi · 2.0h', camp:'hotel', miles:115, phase:'apex', tags:['hotel'], desc:'Short drive into canyon country. Dead Horse Point on the way in. Hotel night — shower deserved.',
-    food:[
-      { name:'Moab Brewery', type:'Craft beer + food · Moab institution', detail:'Dead Horse Ale is named after the overlook you just visited. Order it.', tags:[{t:'open now',cls:'live'},{t:'$$',cls:''},{t:'dinner',cls:'cat'}] },
-      { name:'Eklectica Café · breakfast', type:'Café · best morning stop in Moab', detail:'Colorful, eclectic, excellent espresso. Breakfast burritos are outstanding.', tags:[{t:'7am–2pm',cls:'warn'},{t:'$',cls:''},{t:'breakfast',cls:'cat'}] },
-      { name:'Quesadilla Mobilla · food truck', type:'Mexican street food · Center St', detail:'Famous Moab food truck. Massive quesadillas, cash only, line moves fast.', tags:[{t:'11am–9pm',cls:'live'},{t:'$',cls:''},{t:'local favorite',cls:'cat'}] },
-    ],
-    exploreData:{ title:'Explore mode · Moab arrival', items:['Dead Horse Point SP — 9 mi detour off Hwy 313. The Colorado River horseshoe view. $20, worth every cent.','Corona Arch trail — 3 mi RT, easy, enormous arch. Best intro to Moab hiking.','Arches NP evening drive — timed entry required but late afternoon light on the fins is otherworldly.'] },
-    restData:{ title:'Rest stop · Moab', items:['Eddie McStiff\'s — cold beer, AC, pool table. Good decompression spot on arrival.','Moab Spa at the Hoodoo Hotel — day spa passes available. You drove here.','Moab Public Library — free wifi, calm environment, clean restrooms in the center of town.'] },
-    location:'Moab, UT', statusText:'<strong>Apex day.</strong> You\'ve arrived. Settle in — Moab delivers.',
-    fuel:{ show:false, text:'', price:'' },
-    pois:[
-      { cat:'Roadside oddities', dotColor:'#ff6b2b', name:'Dead Horse Point', dist:'9 mi · 15 min', type:'Most photographed view in Utah', tags:[{t:'open now',cls:'live'},{t:'$20 entry',cls:''},{t:'2 hrs',cls:'cat'}] },
-      { cat:'History nearby', dotColor:'#D85A30', name:'Moab Museum', dist:'0.3 mi · walk', type:'Uranium mining history + indigenous cultures', tags:[{t:'open now',cls:'live'},{t:'$5 entry',cls:''},{t:'1 hr',cls:'cat'}] },
-      { cat:'Food intel', dotColor:'#f59e0b', name:'Moab Brewery', dist:'0.8 mi · 3 min', type:'Best craft beer in canyon country — Dead Horse Ale', tags:[{t:'open now',cls:'live'},{t:'$$',cls:''},{t:'dinner',cls:'cat'}] },
-    ],
-    expanded:[
-      { name:'Corona Arch Trail', dist:'3 mi · 5 min', type:'1.5 mi RT · easy · iconic arch', tags:[{t:'open now',cls:'live'},{t:'free',cls:''},{t:'1.5 hrs',cls:''}] },
-      { name:'Arches NP sunset drive', dist:'5 mi · 8 min', type:'Timed-entry required after 7am', tags:[{t:'permit req.',cls:'warn'},{t:'$35/vehicle',cls:''},{t:'sunset',cls:''}] },
-    ],
-    skipText:'Head straight to hotel', skipSub:'Skip stops. Check in early, rest up for Day 7.',
-  },
-  {
-    day:'D7', route:'Moab · Expedition End', meta:'Final day', camp:'hotel', miles:0, phase:'apex', tags:['hotel','event'], desc:'Arches NP sunrise. Delicate Arch at 6am. Best breakfast in Moab at Love Muffin. You made it.',
-    food:[
-      { name:'Love Muffin Café', type:'Breakfast · Moab\'s best', detail:'Huevos rancheros, homemade granola, strong coffee. Get here by 8am or wait in line.', tags:[{t:'7am–2pm',cls:'warn'},{t:'$',cls:''},{t:'must try',cls:'cat'}] },
-      { name:'Moab Diner', type:'Classic American diner', detail:'Pies are exceptional. Great for a slow final morning before heading home.', tags:[{t:'open now',cls:'live'},{t:'$',cls:''},{t:'lunch',cls:'cat'}] },
-      { name:'Peace Tree Juice Café', type:'Smoothies + light food · Center St', detail:'Açaí bowls and fresh juices. Good post-hike recovery stop.', tags:[{t:'open now',cls:'live'},{t:'$',cls:''},{t:'light',cls:'cat'}] },
-    ],
-    exploreData:{ title:'Explore mode · Moab final day', items:['Delicate Arch sunrise — leave camp at 5:30am, hike 3 mi, arrive before the crowds. Life-changing.','Canyonlands NP · Island in the Sky — 32 mi north. Grand Canyon-scale mesa views. Different world.','Morning whitewater raft on the Colorado — half-day trips book up, reserve the night before.'] },
-    restData:{ title:'Rest stop · Moab final day', items:['Sit at the hotel pool — you\'ve earned a slow morning before the drive home.','Moab Information Center — rangers can tell you exactly what road conditions look like homebound.','Eddie McStiff\'s one more time — say goodbye to Moab properly.'] },
-    location:'Moab, UT', statusText:'<strong>Final day.</strong> Expedition complete. Make it count.',
-    fuel:{ show:false, text:'', price:'' },
-    pois:[
-      { cat:'Geology nearby', dotColor:'#3b82f6', name:'Arches National Park', dist:'5 mi · 8 min', type:'Landscape Arch · 290ft span · world record', tags:[{t:'open now',cls:'live'},{t:'$35/vehicle',cls:''},{t:'half day',cls:'cat'}] },
-      { cat:'Photography spots', dotColor:'#22c55e', name:'Delicate Arch at sunrise', dist:'12 mi · 18 min', type:'3 mi RT · arrive by 6am for golden light', tags:[{t:'sunrise: 6:48am',cls:'live'},{t:'$35/vehicle',cls:''},{t:'photo',cls:'cat'}] },
-      { cat:'Food intel', dotColor:'#f59e0b', name:'Love Muffin Café', dist:'0.2 mi · walk', type:'Best breakfast in Moab — get the huevos', tags:[{t:'open 7am',cls:'live'},{t:'$',cls:''},{t:'breakfast',cls:'cat'}] },
-    ],
-    expanded:[
-      { name:'Canyonlands NP · Island in the Sky', dist:'32 mi · 40 min', type:'Mesa Verde overlook · Grand Canyon scale', tags:[{t:'open now',cls:'live'},{t:'$35/vehicle',cls:''},{t:'half day',cls:''}] },
-    ],
-    skipText:'Head home early', skipSub:'Beat the Sunday traffic back to LA.',
-  },
-];
+const dayData = []
 
 const phaseColors = { depart:'var(--green)', outbound:'var(--orange)', apex:'var(--blue)', return:'#ff9166' };
 
 // ─── SCREEN NAVIGATION ───
 // ─── HOME SCREEN DATA ───
-const homeData = [
-  { day:1, date:'March 21, 2026', location:'Las Vegas, NV', start:'Los Angeles, CA', end:'Las Vegas, NV', miles:'~270 mi', drive:'4 hrs', phaseColor:'#22c55e', flag:'Meow Wolf ✦', flagStyle:'background:rgba(168,85,247,.18);color:#a855f7', pills:[{t:'event',s:'background:rgba(168,85,247,.12);color:#a855f7'},{t:'hotel',s:'background:rgba(59,130,246,.12);color:#3b82f6'}], overview:'Drive from Los Angeles through the Mojave Desert to Las Vegas. Tonight is the Meow Wolf experience — book tickets in advance. Keep the drive efficient; this is a transition day. Last major resupply before entering Utah canyon country. Fill the tank before leaving Vegas.',
-    brief: {
-      stops: [
-        { color:'#d97830', name:'Barstow, CA', note:"Fuel + Mad Greek Café — don't skip it" },
-        { color:'#888', name:'Baker, CA', note:"World's tallest thermometer. Quick photo stop." },
-        { color:'#a855f7', name:'Meow Wolf Las Vegas', note:'Immersive art — book tickets in advance' },
-      ],
-      weather: { hi:'78°F', lo:'58°F', sky:'Clear · Mojave heat', note:'Leave LA early to beat I-15 traffic. AC on the whole way.' },
-      overnight: { name:'Hotel · Las Vegas', rows:["Pre-book — rates spike on weekends","Downtown is cheaper + closer to Meow Wolf","Check out by 9am tomorrow for early Utah push"] }
-    }
-  },
-  { day:2, date:'March 22, 2026', location:'Hurricane Cliffs, UT', start:'Las Vegas, NV', end:'Hurricane Cliffs, UT', miles:'~125 mi', drive:'~2 hrs', phaseColor:'#22c55e', flag:'Dispersed Camp', flagStyle:'background:rgba(34,197,94,.15);color:#22c55e', pills:[{t:'camp',s:'background:rgba(34,197,94,.12);color:#22c55e'}], overview:'Short drive into Utah. Hurricane Cliffs BLM land offers excellent dispersed camping with big red rock views and wide open sky. Set up camp early, shake down the rig, and prep all gear for the Zion Subway hike. Permit pick-up is tomorrow morning at the Zion visitor center.',
-    brief: {
-      stops: [
-        { color:'#d97830', name:'Virgin, UT', note:'Last fuel + supplies before camp' },
-        { color:'#888', name:'Hurricane Cliffs BLM', note:'Multiple flat pull-outs off Hwy 59' },
-        { color:'#22c55e', name:'Camp setup', note:'Waterproof all gear · check permit logistics' },
-      ],
-      weather: { hi:'62°F', lo:'34°F', sky:'Clear · cold overnight', note:'Temps drop fast after sunset. Layer up. Wind from the SW after 6pm.' },
-      overnight: { name:'BLM Dispersed · Hurricane Cliffs', rows:['No fee · no reservation required','Flat pull-outs off Hwy 59 — multiple options','Bring all water — no services on site'] }
-    }
-  },
-  { day:3, date:'March 23, 2026', location:'Zion National Park', start:'Hurricane Cliffs, UT', end:'Zion NP', miles:'~45 mi', drive:'1.5–2 hrs', phaseColor:'#d97830', flag:'Permit Day', flagStyle:'background:rgba(217,120,48,.18);color:#d97830', pills:[{t:'permit',s:'background:rgba(217,120,48,.12);color:#d97830'},{t:'camp',s:'background:rgba(34,197,94,.12);color:#22c55e'}], overview:"Pick up Subway permits at the Zion visitor center first thing. Explore the main canyon — Riverside Walk, lower canyon photography, and full gear prep for tomorrow's technical slot canyon hike. Stage pack weights and waterproof everything tonight.",
-    brief: {
-      stops: [
-        { color:'#d97830', name:'Zion Visitor Center', note:'Subway permit pickup — arrive before 8am' },
-        { color:'#888', name:'Riverside Walk', note:'Lower narrows photography · 2.2 mi RT' },
-        { color:'#888', name:'South Campground', note:'Check in · set up before sunset' },
-      ],
-      weather: { hi:'61°F', lo:'38°F', sky:'Partly cloudy', note:'Canyon temps 10°F cooler than the rim. Narrows water ~45°F — dry suit tomorrow.' },
-      overnight: { name:'South Campground · Zion NP', rows:['Loop A · Sites 1–24 · $25/night','Water + flush toilets on site','Reserve at recreation.gov · arrive by 2pm'] }
-    }
-  },
-  { day:4, date:'March 24, 2026', location:'Zion Subway', start:'Zion NP', end:'Zion NP', miles:'9.5 mi hike', drive:'2 hrs car', phaseColor:'#d97830', flag:'The Main Event', flagStyle:'background:rgba(217,120,48,.22);color:#d97830', pills:[{t:'technical',s:'background:rgba(217,120,48,.14);color:#d97830'},{t:'permit req.',s:'background:rgba(168,85,247,.12);color:#a855f7'}], overview:'The main event. The Subway is a technical slot canyon route through sculpted sandstone narrows, keeper pools, and rappels. 9.5 miles total. Permit required. Trailhead: 37.2846493, -113.0958538. Leave by 7am, pack light, waterproof all gear. Expect cold water. Full day commitment — no shortcuts.',
-    brief: {
-      stops: [
-        { color:'#d97830', name:'Subway Trailhead', note:'37.2846493, -113.0958538 · Leave by 7am' },
-        { color:'#888', name:'The Subway slot', note:'Technical section · keeper pools · 4 rappels' },
-        { color:'#22c55e', name:'Exit trailhead', note:'Right Fork · arrange shuttle or 2-car setup' },
-      ],
-      weather: { hi:'58°F', lo:'36°F', sky:'Clear · cold water', note:'Water temp ~43°F. Dry suit strongly recommended. Check flash flood advisory before entry.' },
-      overnight: { name:'South Campground · Zion NP', rows:['Same site as last night — re-confirm reservation','Set up camp before dark after exit hike','Gear dry-out and debrief around the fire'] }
-    }
-  },
-  { day:5, date:'March 25, 2026', location:'Bryce Canyon', start:'Zion NP', end:'Bryce Canyon NP', miles:'~85 mi', drive:'~2 hrs', phaseColor:'#d97830', flag:null, flagStyle:'', pills:[{t:'camp',s:'background:rgba(34,197,94,.12);color:#22c55e'}], overview:'Drive Hwy 9 east then north on Hwy 89 to Bryce. Arrive in time for golden hour at Bryce Amphitheater — the hoodoos glow deep orange. Camp under the ponderosa pines at 8,000 ft; temps drop sharply at night. Set an alarm for sunrise over the hoodoos.',
-    brief: {
-      stops: [
-        { color:'#d97830', name:'Mt. Carmel Junction', note:'Hwy 9 east · scenic tunnel · $35 oversized fee may apply' },
-        { color:'#888', name:'Bryce Amphitheater', note:'Golden hour · Inspiration Point viewpoint' },
-        { color:'#22c55e', name:'Bryce Canyon campground', note:'North or Sunset campground · reserve ahead' },
-      ],
-      weather: { hi:'52°F', lo:'24°F', sky:'Clear · cold at elevation', note:'8,000 ft elevation. Freezing overnight is possible in late March. Insulated sleep setup required.' },
-      overnight: { name:'North Campground · Bryce Canyon NP', rows:['Open year-round · sites A1–A55 · $20/night','Water available · no hookups','Reserve at recreation.gov — fills fast in spring'] }
-    }
-  },
-  { day:6, date:'March 26, 2026', location:'Moab', start:'Bryce Canyon', end:'Moab, UT', miles:'~215 mi', drive:'~3.5 hrs', phaseColor:'#3b82f6', flag:'Apex Day', flagStyle:'background:rgba(59,130,246,.15);color:#3b82f6', pills:[{t:'hotel',s:'background:rgba(59,130,246,.12);color:#3b82f6'},{t:'resupply',s:'background:rgba(217,120,48,.1);color:#d97830'}], overview:'Drive east toward Moab through canyon country. Dead Horse Point State Park is 9 miles off your route — worth every minute. Arrive Moab by mid-afternoon. Hotel night: shower, full resupply, recharge. Moab Brewery for dinner — Dead Horse Ale is named after the overlook you just visited.',
-    brief: {
-      stops: [
-        { color:'#d97830', name:'Dead Horse Point SP', note:'9 mi off Hwy 313 · Colorado River horseshoe · $20 entry' },
-        { color:'#888', name:'Moab town center', note:'Full resupply · gear check · Moab Brewery for dinner' },
-        { color:'#3b82f6', name:'Hotel · Moab', note:'Pre-book · shower · recharge all devices' },
-      ],
-      weather: { hi:'68°F', lo:'42°F', sky:'Sunny · canyon country', note:'Warm and clear. Perfect driving day. Winds can be gusty on the plateau above Moab.' },
-      overnight: { name:'Hotel · Moab, UT', rows:['Pre-book: Moab is popular in spring','Moab Valley Inn or similar midrange option','Check out by 9am tomorrow for Arches timed entry'] }
-    }
-  },
-  { day:7, date:'March 27, 2026', location:'Arches National Park', start:'Moab, UT', end:'Arches NP', miles:'~5 mi', drive:'8 min', phaseColor:'#3b82f6', flag:'Expedition End ✦', flagStyle:'background:rgba(59,130,246,.22);color:#3b82f6', pills:[{t:'final day',s:'background:rgba(59,130,246,.12);color:#3b82f6'},{t:'timed entry',s:'background:rgba(217,120,48,.1);color:#d97830'}], overview:"Timed entry required — reserve in advance at recreation.gov. Leave Moab by 5:30am for Delicate Arch sunrise: 3-mile RT, arrive before the crowds, golden light hits the arch perfectly. Landscape Arch is 1.6 miles RT — the longest natural arch in North America. You've completed Las Vegas → Arches. Make the last hours count.",
-    brief: {
-      stops: [
-        { color:'#d97830', name:'Delicate Arch trailhead', note:'Leave Moab by 5:30am · 3 mi RT · golden light at sunrise' },
-        { color:'#888', name:'Landscape Arch', note:'1.6 mi RT · longest natural arch in North America' },
-        { color:'#3b82f6', name:'Park Avenue viewpoint', note:'Final stop · iconic skyline view · expedition complete' },
-      ],
-      weather: { hi:'65°F', lo:'38°F', sky:'Clear · ideal conditions', note:'Perfect spring morning. Cold at sunrise — bring a layer. Warms quickly by 9am.' },
-      overnight: { name:'Hotel · Moab (checkout)', rows:['Check out after morning hike','Long drive home if returning to LA today — 7+ hrs','Consider one more night in Moab and leave fresh tomorrow'] }
-    }
-  },
-];
+const homeData = []
 
 let homeActive = 0;
 
@@ -2674,6 +2445,17 @@ function renderHomeCards() {
   const container = document.getElementById('home-card-scroll');
   if (!container) return;
   container.innerHTML = '';
+
+  if (!homeData || homeData.length === 0) {
+    container.innerHTML = `
+      <div style="text-align:center;padding:60px 24px">
+        <div style="font-size:36px;margin-bottom:16px;opacity:.3">🧭</div>
+        <div style="font-family:var(--cond);font-size:22px;font-weight:800;color:var(--text2);margin-bottom:8px">No trip loaded</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--text3);line-height:1.7">Upload a reference doc on the<br>New Trip screen to build your plan.</div>
+        <button onclick="navTo('screen-new-trip')" style="margin-top:20px;padding:10px 24px;border-radius:20px;border:1.5px solid var(--orange);background:transparent;color:var(--orange);font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;cursor:pointer">+ New Trip</button>
+      </div>`;
+    return;
+  }
   homeData.forEach((d, i) => {
     const card = document.createElement('div');
     card.className = 'hday-card' + (i === homeActive ? ' hactive' : '');
@@ -2833,6 +2615,16 @@ function closeDayDive() {
 // ─── RENDER DAY TABLE ───
 function renderDayTable() {
   const container = document.getElementById('day-rows-container');
+  if (!dayData || dayData.length === 0) {
+    container.innerHTML = `
+      <div style="text-align:center;padding:60px 24px">
+        <div style="font-size:36px;margin-bottom:16px;opacity:.3">📅</div>
+        <div style="font-family:var(--cond);font-size:22px;font-weight:800;color:var(--text2);margin-bottom:8px">No route loaded</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--text3);line-height:1.7">Upload a reference doc on the<br>New Trip screen to build your plan.</div>
+        <button onclick="navTo('screen-new-trip')" style="margin-top:20px;padding:10px 24px;border-radius:20px;border:1.5px solid var(--orange);background:transparent;color:var(--orange);font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;cursor:pointer">+ New Trip</button>
+      </div>`;
+    return;
+  }
   const barColors = { depart:'#22c55e', outbound:'#ff6b2b', apex:'#3b82f6', return:'#ff9166' };
   let html = '<div class="day-cards-list">';
   dayData.forEach((d,i) => {
@@ -3103,19 +2895,50 @@ function prefillFromDrive() {
     const el = document.getElementById(id);
     if (el) { el.value = val; el.classList.add('prefilled'); }
   });
-  // Safe updates — only touch elements that exist
-  const safeSet = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-  safeSet('stat-days', '7');
-  safeSet('header-sub-text', 'Los Angeles CA 90031 → Moab, UT · 7 days · March 21, 2026');
-  safeSet('rig-badge', 'GX470');
 
-  // Add events
+  // Add fixed events from doc
   state.events = [
-    { name:'Easter Jeep Safari', date:'Mar 28, 2026', loc:'Moab, UT' },
-    { name:'Arches Sunrise Permit', date:'Mar 29, 2026', loc:'Arches NP' },
-    { name:'Return home', date:'Mar 31, 2026', loc:'Los Angeles, CA' },
+    { name:'Meow Wolf Las Vegas', date:'Mar 21, 2026', loc:'Las Vegas, NV' },
+    { name:'Zion Subway Permit', date:'Mar 23, 2026', loc:'Zion NP' },
+    { name:'Zion Subway Hike', date:'Mar 24, 2026', loc:'37.2846, -113.0959' },
   ];
   renderEvents();
+
+  // Populate homeData from doc section 04
+  homeData.length = 0;
+  const tripDays = [
+    { day:1, date:'March 21, 2026', location:'Las Vegas, NV', start:'Los Angeles, CA', end:'Las Vegas, NV', miles:'~270 mi', drive:'4 hrs', phaseColor:'#22c55e', flag:'Meow Wolf ✦', flagStyle:'background:rgba(168,85,247,.18);color:#a855f7', pills:[{t:'event',s:'background:rgba(168,85,247,.12);color:#a855f7'},{t:'hotel',s:'background:rgba(59,130,246,.12);color:#3b82f6'}], overview:'Depart LA through the Mojave to Las Vegas. Meow Wolf tonight — book tickets in advance. Last major resupply before Utah. Fill the tank before leaving Vegas.', brief:{ stops:[{color:'#d97830',name:'Barstow, CA',note:"Fuel + Mad Greek Café — don't skip it"},{color:'#888',name:'Baker, CA',note:"World's tallest thermometer. Quick photo stop."},{color:'#a855f7',name:'Meow Wolf Las Vegas',note:'Immersive art — book tickets in advance'}], weather:{hi:'78°F',lo:'58°F',sky:'Clear · Mojave heat',note:'Leave LA early to beat I-15 traffic.'}, overnight:{name:'Hotel · Las Vegas',rows:["Pre-book — rates spike on weekends","Downtown is cheaper + closer to Meow Wolf","Check out by 9am tomorrow"]} } },
+    { day:2, date:'March 22, 2026', location:'Hurricane Cliffs, UT', start:'Las Vegas, NV', end:'Hurricane Cliffs, UT', miles:'~125 mi', drive:'~2 hrs', phaseColor:'#22c55e', flag:'Dispersed Camp', flagStyle:'background:rgba(34,197,94,.15);color:#22c55e', pills:[{t:'camp',s:'background:rgba(34,197,94,.12);color:#22c55e'}], overview:'Short drive into Utah. Hurricane Cliffs BLM — dispersed camp under red rock sky. Prep all Subway gear tonight.', brief:{ stops:[{color:'#d97830',name:'Virgin, UT',note:'Last fuel + supplies before camp'},{color:'#888',name:'Hurricane Cliffs BLM',note:'Multiple pull-outs off Hwy 59'},{color:'#22c55e',name:'Camp setup',note:'Waterproof gear · check permit logistics'}], weather:{hi:'62°F',lo:'34°F',sky:'Clear · cold overnight',note:'Temps drop fast after sunset. Layer up.'}, overnight:{name:'BLM Dispersed · Hurricane Cliffs',rows:['No fee · no reservation required','Flat pull-outs off Hwy 59','Bring all water — no services']} } },
+    { day:3, date:'March 23, 2026', location:'Zion National Park', start:'Hurricane Cliffs, UT', end:'Zion NP', miles:'~45 mi', drive:'1.5–2 hrs', phaseColor:'#d97830', flag:'Permit Day', flagStyle:'background:rgba(217,120,48,.18);color:#d97830', pills:[{t:'permit',s:'background:rgba(217,120,48,.12);color:#d97830'},{t:'camp',s:'background:rgba(34,197,94,.12);color:#22c55e'}], overview:"Pick up Subway permits at the visitor center first thing. Riverside Walk, lower canyon photography, and gear prep for tomorrow's technical hike.", brief:{ stops:[{color:'#d97830',name:'Zion Visitor Center',note:'Subway permit pickup — arrive before 8am'},{color:'#888',name:'Riverside Walk',note:'Lower narrows photography · 2.2 mi RT'},{color:'#888',name:'South Campground',note:'Check in · set up before sunset'}], weather:{hi:'61°F',lo:'38°F',sky:'Partly cloudy',note:'Canyon temps 10°F cooler. Narrows water ~45°F — dry suit tomorrow.'}, overnight:{name:'South Campground · Zion NP',rows:['Loop A · $25/night · water + flush toilets','Reserve at recreation.gov','Arrive by 2pm']} } },
+    { day:4, date:'March 24, 2026', location:'Zion Subway', start:'Zion NP', end:'Zion NP', miles:'9.5 mi hike', drive:'2 hrs car', phaseColor:'#d97830', flag:'The Main Event', flagStyle:'background:rgba(217,120,48,.22);color:#d97830', pills:[{t:'technical',s:'background:rgba(217,120,48,.14);color:#d97830'},{t:'permit req.',s:'background:rgba(168,85,247,.12);color:#a855f7'}], overview:'Technical slot canyon through sculpted narrows, keeper pools, and rappels. 9.5 miles. Trailhead: 37.2846493, -113.0958538. Leave by 7am. Full day commitment.', brief:{ stops:[{color:'#d97830',name:'Subway Trailhead',note:'37.2846493, -113.0958538 · Leave by 7am'},{color:'#888',name:'The Subway slot',note:'Technical section · keeper pools · rappels'},{color:'#22c55e',name:'Exit trailhead',note:'Right Fork · arrange shuttle or 2-car setup'}], weather:{hi:'58°F',lo:'36°F',sky:'Clear · cold water',note:'Water temp ~43°F. Dry suit strongly recommended.'}, overnight:{name:'South Campground · Zion NP',rows:['Same site as last night — re-confirm reservation','Set up before dark after exit hike']} } },
+    { day:5, date:'March 25, 2026', location:'Bryce Canyon', start:'Zion NP', end:'Bryce Canyon NP', miles:'~85 mi', drive:'~2 hrs', phaseColor:'#d97830', flag:null, flagStyle:'', pills:[{t:'camp',s:'background:rgba(34,197,94,.12);color:#22c55e'}], overview:'Drive Hwy 9 east to Bryce. Arrive for golden hour — hoodoos glow deep orange. Camp at 8,000 ft. Set alarm for sunrise.', brief:{ stops:[{color:'#d97830',name:'Mt. Carmel Junction',note:'Hwy 9 east · scenic tunnel'},{color:'#888',name:'Bryce Amphitheater',note:'Golden hour · Inspiration Point'},{color:'#22c55e',name:'North Campground',note:'Reserve at recreation.gov'}], weather:{hi:'52°F',lo:'24°F',sky:'Clear · cold at elevation',note:'8,000 ft. Freezing overnight possible. Insulated sleep setup required.'}, overnight:{name:'North Campground · Bryce Canyon NP',rows:['Open year-round · $20/night','Water available · no hookups','Reserve at recreation.gov']} } },
+    { day:6, date:'March 26, 2026', location:'Moab', start:'Bryce Canyon', end:'Moab, UT', miles:'~215 mi', drive:'~3.5 hrs', phaseColor:'#3b82f6', flag:'Apex Day', flagStyle:'background:rgba(59,130,246,.15);color:#3b82f6', pills:[{t:'hotel',s:'background:rgba(59,130,246,.12);color:#3b82f6'},{t:'resupply',s:'background:rgba(217,120,48,.1);color:#d97830'}], overview:'Drive east through canyon country. Dead Horse Point is 9 miles off route — worth it. Hotel night: shower, full resupply, Moab Brewery for dinner.', brief:{ stops:[{color:'#d97830',name:'Dead Horse Point SP',note:'9 mi off Hwy 313 · $20 entry'},{color:'#888',name:'Moab town center',note:'Full resupply · Moab Brewery for dinner'},{color:'#3b82f6',name:'Hotel · Moab',note:'Pre-book · shower · recharge'}], weather:{hi:'68°F',lo:'42°F',sky:'Sunny · canyon country',note:'Warm and clear. Perfect driving day.'}, overnight:{name:'Hotel · Moab, UT',rows:['Pre-book — busy in spring','Check out by 9am tomorrow for Arches']} } },
+    { day:7, date:'March 27, 2026', location:'Arches National Park', start:'Moab, UT', end:'Arches NP', miles:'~5 mi', drive:'8 min', phaseColor:'#3b82f6', flag:'Expedition End ✦', flagStyle:'background:rgba(59,130,246,.22);color:#3b82f6', pills:[{t:'final day',s:'background:rgba(59,130,246,.12);color:#3b82f6'},{t:'timed entry',s:'background:rgba(217,120,48,.1);color:#d97830'}], overview:"Timed entry required. Leave Moab by 5:30am for Delicate Arch sunrise. Landscape Arch is 1.6 mi RT. You've completed Las Vegas → Arches.", brief:{ stops:[{color:'#d97830',name:'Delicate Arch trailhead',note:'Leave Moab 5:30am · 3 mi RT · golden light'},{color:'#888',name:'Landscape Arch',note:'1.6 mi RT · longest natural arch in NA'},{color:'#3b82f6',name:'Park Avenue viewpoint',note:'Final stop · expedition complete'}], weather:{hi:'65°F',lo:'38°F',sky:'Clear · ideal conditions',note:'Cold at sunrise — bring a layer.'}, overnight:{name:'Hotel · Moab (checkout)',rows:['Check out after morning hike','7+ hrs to LA — consider one more night']} } },
+  ];
+  tripDays.forEach(d => homeData.push(d));
+
+  // Populate dayData for Route Details screen
+  dayData.length = 0;
+  const routeDays = [
+    { day:'D1', route:'Las Vegas, NV', meta:'Depart · ~270 mi · 4 hrs', camp:'hotel', miles:270, phase:'depart', tags:['hotel','fuel'], desc:'Depart LA through the Mojave. Meow Wolf tonight. Last major resupply before Utah canyon country.', location:'Las Vegas, NV', statusText:'<strong>Depart day.</strong> Drive from LA to Las Vegas.', fuel:{show:false,text:'',price:''}, pois:[], expanded:[], skipText:'Push straight through', skipSub:'Skip Las Vegas, camp earlier in Utah.', food:[], exploreData:{title:'Las Vegas',items:['Meow Wolf — book tickets in advance','Neon Museum — graveyard of classic Vegas signs','Arts District walk — cafés + galleries']}, restData:{title:'Rest stops',items:['Mad Greek Café · Baker — legendary roadside diner','In-N-Out · Las Vegas Blvd — ritual stop','Downtown Container Park — outdoor seating + shade']} },
+    { day:'D2', route:'Hurricane Cliffs, UT', meta:'Camp · ~125 mi · 2 hrs', camp:'camp', miles:125, phase:'depart', tags:['camp'], desc:'Short drive into Utah. BLM dispersed camp under big red rock sky. Prep Subway gear tonight.', location:'Hurricane Cliffs, UT', statusText:'<strong>Gear prep day.</strong> Short drive into Utah canyon country.', fuel:{show:true,text:'<strong>Fill in Virgin, UT.</strong> Last station before Hurricane Cliffs.',price:'$4.32'}, pois:[], expanded:[], skipText:'Push to Zion tonight', skipSub:'Skip camp, check into Zion campground early.', food:[], exploreData:{title:'Hurricane Cliffs',items:['Hurricane Cliffs BLM — sunset photography from the rim','Quail Creek State Park — warm water reservoir nearby','Short scouting drive for tomorrow\'s Zion approach']}, restData:{title:'Rest stops',items:['Hurricane town park — water + shade','Milt\'s Stage Stop — local BBQ in Cedar City (30 min north)']} },
+    { day:'D3', route:'Zion National Park', meta:'Permit Day · ~45 mi · 1.5 hrs', camp:'camp', miles:45, phase:'outbound', tags:['camp','fuel'], desc:'Pick up Subway permits. Riverside Walk, lower canyon photography, gear stage for tomorrow.', location:'Zion NP, UT', statusText:'<strong>Permit pickup day.</strong> Light driving. Full Zion canyon exploration.', fuel:{show:false,text:'',price:''}, pois:[], expanded:[], skipText:'Skip Zion scouting', skipSub:'Rest at camp, save energy for the Subway.', food:[], exploreData:{title:'Zion National Park',items:['Riverside Walk — 2.2 mi RT into the Narrows entrance','Emerald Pools trail — lower loop, 1.2 mi, easy','Scout the Subway trailhead access road this evening']}, restData:{title:'Rest stops',items:['Zion Lodge café — patio lunch with canyon views','South Campground pavilion — shade + water','Zion Visitor Center bookstore — maps + beta']} },
+    { day:'D4', route:'Zion Subway', meta:'Technical · 9.5 mi hike', camp:'camp', miles:0, phase:'outbound', tags:['camp','event'], desc:'The main event. Technical slot canyon. Leave by 7am. Full day commitment. No shortcuts.', location:'Zion Subway', statusText:'<strong>The main event.</strong> Technical slot canyon hike. Full day.', fuel:{show:false,text:'',price:''}, pois:[], expanded:[], skipText:'Bail early if water is high', skipSub:'Check flash flood conditions before entry.', food:[], exploreData:{title:'Zion Subway',items:['Left Fork trailhead to Right Fork — 9.5 mi technical','Keeper pools require swimming — dry suit essential','4 rappels maximum 20ft — webbing + ATC required']}, restData:{title:'Post-hike recovery',items:['Zion Lodge — cold beer on the patio after the hike','South Campground — gear dry-out and camp dinner','Sleep early — two more hard days ahead']} },
+    { day:'D5', route:'Bryce Canyon', meta:'Camp · ~85 mi · 2 hrs', camp:'camp', miles:85, phase:'outbound', tags:['camp'], desc:'Drive Hwy 9 east to Bryce. Golden hour hoodoos. Camp at 8,000 ft. Set alarm for sunrise.', location:'Bryce Canyon NP', statusText:'<strong>Bryce day.</strong> Drive scenic Hwy 9, arrive for golden hour.', fuel:{show:false,text:'',price:''}, pois:[], expanded:[], skipText:'Skip sunset, set up camp early', skipSub:'Rest up — long drive to Moab tomorrow.', food:[], exploreData:{title:'Bryce Canyon',items:['Sunset Point — arrive 30 min before for best light','Navajo Loop trail — 1.3 mi through hoodoos','Queens Garden — 1.8 mi RT, less crowded morning option']}, restData:{title:'Rest stops',items:['Bryce Canyon Lodge dining room — sit-down dinner','Ruby\'s Inn — last fuel + supplies near park entrance','Visitor Center — ranger tips for sunrise tomorrow']} },
+    { day:'D6', route:'Moab', meta:'Apex · ~215 mi · 3.5 hrs', camp:'hotel', miles:215, phase:'apex', tags:['hotel','fuel'], desc:'Canyon country drive to Moab. Dead Horse Point detour. Hotel night — shower earned.', location:'Moab, UT', statusText:'<strong>Apex day.</strong> Canyon country arrival. You\'ve earned a shower.', fuel:{show:true,text:'<strong>Fill in Hatch or Salina.</strong> Long stretch before Moab.',price:'$4.45'}, pois:[], expanded:[], skipText:'Skip Dead Horse Point', skipSub:'Save 45 min. Arrive Moab by 2pm.', food:[], exploreData:{title:'Moab corridor',items:['Dead Horse Point SP — 9 mi detour, Colorado River horseshoe','Canyonlands NP overlook — Grand Canyon-scale mesa views','Corona Arch trail — 3 mi RT, easy, enormous arch']}, restData:{title:'Moab rest',items:['Moab Brewery — Dead Horse Ale + post-drive debrief','Moab Spa at Hoodoo Hotel — day passes available','Eddie McStiff\'s — cold beer, AC, pool table']} },
+    { day:'D7', route:'Arches National Park', meta:'Final Day · ~5 mi · 8 min', camp:'hotel', miles:5, phase:'apex', tags:['hotel','event'], desc:'Delicate Arch sunrise. Timed entry required. Landscape Arch. Expedition complete.', location:'Arches NP', statusText:'<strong>Final day.</strong> Expedition complete. Make it count.', fuel:{show:false,text:'',price:''}, pois:[], expanded:[], skipText:'Head home early', skipSub:'Beat Sunday traffic back to LA.', food:[], exploreData:{title:'Arches NP',items:['Delicate Arch — leave Moab 5:30am, 3 mi RT, golden light','Landscape Arch — 1.6 mi RT, longest natural arch on Earth','Windows section — easy 1 mi loop, multiple arches']}, restData:{title:'Final morning',items:['Love Muffin Café — best breakfast in Moab, go early','Moab Information Center — homebound road condition check','Eddie McStiff\'s one last time — say goodbye properly']} },
+  ];
+  routeDays.forEach(d => dayData.push(d));
+
+  // Update home screen header
+  const homeTitle = document.querySelector('#screen-home .home-title');
+  const homeSub = document.querySelector('#screen-home .home-sub');
+  if (homeTitle) homeTitle.textContent = 'Las Vegas → Arches';
+  if (homeSub) homeSub.textContent = 'Mar 21–27 · 7 days · GX470';
+
+  // Refresh screens if currently visible
+  renderHomeCards();
+  renderDayTable();
 }
 
 // ─── EVENTS ───
