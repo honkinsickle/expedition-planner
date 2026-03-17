@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Claud v1.1 · Expedition Planner</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -2852,10 +2853,9 @@ async function handleDocUpload(event) {
   updateStep('pi-access', 'pv-access', 'reading…', false);
   let docText = '';
   try {
-    if (file.name.endsWith('.docx')) {
-      // Use mammoth via CDN to extract text from docx
+    if (file.name.endsWith('.docx') || file.name.endsWith('.doc')) {
       const arrayBuffer = await file.arrayBuffer();
-      const mammoth = await import('https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js');
+      if (typeof mammoth === 'undefined') throw new Error('mammoth not loaded');
       const result = await mammoth.extractRawText({ arrayBuffer });
       docText = result.value;
     } else {
